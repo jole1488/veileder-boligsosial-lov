@@ -3,205 +3,383 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Veileder til boligsosialloven – Husbanken</title>
+<title>Boligsosialloven – Veileder fra Husbanken</title>
 <style>
-  :root {
-    --blue-dark: #004B87;
-    --blue-mid: #0073CF;
-    --blue-light: #E5F1FA;
-    --green: #1A6B3A;
-    --green-light: #E8F5EE;
-    --orange: #C85000;
-    --orange-light: #FFF3EC;
-    --gray-bg: #F5F7F9;
-    --gray-border: #D4DCE4;
-    --text: #1A1A1A;
-    --text-muted: #555;
-    --sidebar-w: 280px;
-  }
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: 'Segoe UI', Arial, sans-serif; font-size: 16px; color: var(--text); background: #fff; line-height: 1.65; }
+:root {
+  /* Husbanken design system */
+  --hb-green: #82b55d;
+  --hb-green-dark: #3d6b1e;
+  --hb-green-mid: #5a8f34;
+  --hb-green-light: #edf4e0;
+  --hb-green-bg: #f3f8ec;
+  --orange: #b94000;
+  --orange-light: #fff0e8;
+  --gray-bg: #f7f7f5;
+  --gray-border: #d4d4cc;
+  --text: #1c1c1c;
+  --text-muted: #5a5a52;
+  --sidebar-w: 280px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Source Sans Pro', 'Segoe UI', Arial, sans-serif; font-size: 16px; color: var(--text); background: #fff; line-height: 1.65; }
 
-  /* HEADER */
-  #site-header {
-    position: fixed; top: 0; left: 0; right: 0; height: 56px;
-    background: var(--blue-dark); color: #fff;
-    display: flex; align-items: center; padding: 0 20px; z-index: 100;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-  }
-  #site-header .logo { font-size: 18px; font-weight: 700; letter-spacing: 0.02em; }
-  #site-header .title { margin-left: 20px; font-size: 14px; opacity: 0.85; border-left: 1px solid rgba(255,255,255,0.3); padding-left: 20px; }
-  #menu-toggle { display: none; background: none; border: none; color: #fff; font-size: 22px; cursor: pointer; margin-right: 12px; }
+/* ── HEADER ── */
+#site-header {
+  position: fixed; top: 0; left: 0; right: 0; height: 60px;
+  background: #fff; color: var(--text); border-bottom: 3px solid var(--hb-green);
+  display: flex; align-items: center; padding: 0 28px; z-index: 200;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
+#site-header .logo {
+  font-size: 18px; font-weight: 800; letter-spacing: -0.01em; cursor: pointer;
+  color: var(--hb-green-dark); display: flex; align-items: center; gap: 10px;
+}
+#site-header .logo-mark {
+  width: 32px; height: 32px; background: var(--hb-green); border-radius: 4px;
+  display: flex; align-items: center; justify-content: center;
+  color: #fff; font-size: 14px; font-weight: 900; flex-shrink: 0;
+}
+#site-header .logo:hover { color: var(--hb-green-mid); }
+#site-header .sep { width: 1px; height: 24px; background: var(--gray-border); margin: 0 20px; }
+#site-header .site-title { font-size: 13px; color: var(--text-muted); }
+#back-btn {
+  display: none; margin-left: auto; background: var(--hb-green-light);
+  border: 1px solid var(--hb-green); color: var(--hb-green-dark); padding: 6px 16px;
+  border-radius: 20px; font-size: 13px; font-weight: 600; cursor: pointer;
+}
+#back-btn:hover { background: var(--hb-green); color: #fff; }
+#print-btn {
+  display: none; margin-left: 8px; background: transparent;
+  border: 1px solid var(--gray-border); color: var(--text-muted); padding: 6px 14px;
+  border-radius: 20px; font-size: 13px; cursor: pointer;
+}
+#print-btn:hover { border-color: var(--hb-green); color: var(--hb-green-dark); }
 
-  /* SIDEBAR */
-  #sidebar {
-    position: fixed; top: 56px; left: 0; bottom: 0; width: var(--sidebar-w);
-    background: var(--gray-bg); border-right: 1px solid var(--gray-border);
-    overflow-y: auto; z-index: 90; padding-bottom: 40px;
-  }
-  #sidebar .nav-group { padding: 16px 0 8px; }
-  #sidebar .nav-group-title {
-    font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
-    color: var(--text-muted); padding: 0 20px 6px;
-  }
-  #sidebar a {
-    display: block; padding: 7px 20px; font-size: 13.5px; color: var(--text);
-    text-decoration: none; border-left: 3px solid transparent;
-    transition: background 0.15s, border-color 0.15s;
-  }
-  #sidebar a:hover { background: var(--blue-light); color: var(--blue-dark); }
-  #sidebar a.active { border-left-color: var(--blue-mid); background: var(--blue-light); color: var(--blue-dark); font-weight: 600; }
-  #sidebar a .num { display: inline-block; width: 22px; font-size: 11px; color: var(--text-muted); }
+/* ── SIDEBAR (content pages) ── */
+#sidebar {
+  display: none; position: fixed; top: 60px; left: 0; bottom: 0;
+  width: var(--sidebar-w); background: var(--gray-bg);
+  border-right: 1px solid var(--gray-border); overflow-y: auto; z-index: 90;
+}
+#sidebar .nav-group { padding: 16px 0 8px; }
+#sidebar .nav-group-title {
+  font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--text-muted); padding: 0 18px 8px;
+}
+#sidebar a {
+  display: block; padding: 7px 18px; font-size: 13px; color: var(--text);
+  text-decoration: none; border-left: 3px solid transparent;
+}
+#sidebar a:hover { background: var(--hb-green-light); color: var(--hb-green-dark); }
+#sidebar a.active { border-left-color: var(--hb-green); background: var(--hb-green-light); color: var(--hb-green-dark); font-weight: 600; }
+#sidebar a .num { display: inline-block; width: 26px; font-size: 11px; color: var(--text-muted); }
 
-  /* MAIN */
-  #main { margin-left: var(--sidebar-w); margin-top: 56px; padding: 40px 48px 80px; max-width: 900px; }
+/* ── CONTENT WRAPPER ── */
+#content-wrap { display: none; margin-left: var(--sidebar-w); margin-top: 60px; padding: 40px 48px 80px; max-width: 900px; }
 
-  /* SECTIONS */
-  .section { padding-top: 60px; border-top: 2px solid var(--gray-border); margin-top: 60px; }
-  .section:first-child { border-top: none; margin-top: 0; padding-top: 0; }
-  .section-tag {
-    display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: 0.08em;
-    text-transform: uppercase; padding: 3px 10px; border-radius: 3px; margin-bottom: 12px;
-  }
-  .tag-veileder { background: var(--blue-dark); color: #fff; }
-  .tag-pakke { background: var(--green); color: #fff; }
+/* ── HOME PAGE ── */
+#home-page { display: block; margin-top: 60px; }
 
-  h1 { font-size: 28px; font-weight: 700; color: var(--blue-dark); margin-bottom: 8px; line-height: 1.3; }
-  h2 { font-size: 20px; font-weight: 700; color: var(--blue-dark); margin: 32px 0 10px; }
-  h3 { font-size: 16px; font-weight: 700; color: var(--text); margin: 22px 0 8px; }
-  h4 { font-size: 15px; font-weight: 600; color: var(--text); margin: 16px 0 6px; }
-  p { margin-bottom: 14px; }
-  ul, ol { margin: 10px 0 14px 22px; }
-  li { margin-bottom: 5px; }
-  strong { font-weight: 600; }
-  a { color: var(--blue-mid); text-decoration: none; }
-  a:hover { text-decoration: underline; }
-  code { background: #eef2f7; padding: 1px 5px; border-radius: 3px; font-size: 0.9em; font-family: monospace; }
+.hero {
+  background: var(--hb-green-dark);
+  background: linear-gradient(135deg, #2a4f12 0%, #3d6b1e 55%, #4e841f 100%);
+  color: #fff; padding: 72px 48px 60px; text-align: center;
+}
+.hero h1 { font-size: 38px; font-weight: 800; margin-bottom: 12px; letter-spacing: -0.02em; }
+.hero .sub { font-size: 18px; opacity: 0.9; margin-bottom: 6px; }
+.hero .meta { font-size: 13px; opacity: 0.65; margin-top: 8px; }
 
-  /* SUBTITLE */
-  .section-subtitle { font-size: 14px; color: var(--text-muted); margin-bottom: 24px; padding-bottom: 16px; border-bottom: 1px solid var(--gray-border); }
+.home-intro {
+  max-width: 720px; margin: 40px auto 0; padding: 0 24px;
+  text-align: center; color: var(--text-muted); font-size: 15px;
+}
 
-  /* BLOCKQUOTE (lovtekst) */
-  blockquote {
-    background: var(--blue-light); border-left: 4px solid var(--blue-mid);
-    padding: 14px 18px; margin: 18px 0; border-radius: 0 4px 4px 0;
-    font-style: italic; color: #2a2a2a;
-  }
-  blockquote p { margin-bottom: 6px; }
-  blockquote p:last-child { margin-bottom: 0; }
+.paths {
+  max-width: 1200px; margin: 48px auto 0; padding: 0 24px 80px;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 40px;
+}
+@media (max-width: 860px) { .paths { grid-template-columns: 1fr; } }
 
-  /* CALLOUT BOXES */
-  .box { padding: 14px 18px; border-radius: 4px; margin: 18px 0; }
-  .box-recommendation { background: var(--green-light); border-left: 4px solid var(--green); }
-  .box-recommendation::before { content: 'Husbankens anbefaling'; display: block; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--green); margin-bottom: 8px; }
-  .box-warning { background: var(--orange-light); border-left: 4px solid var(--orange); }
-  .box-warning::before { content: '⚠ Juridisk kvalitetssikring anbefales'; display: block; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--orange); margin-bottom: 8px; }
-  .box-cite { background: #F0F4F8; border-left: 4px solid var(--blue-dark); }
-  .box-cite::before { content: 'Til saksframlegget'; display: block; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--blue-dark); margin-bottom: 8px; }
-  .box-scenario { background: #FFF8E6; border-left: 4px solid #D4900A; }
-  .box-scenario::before { content: 'Scenario'; display: block; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #8A5F00; margin-bottom: 8px; }
+.path-section { }
+.path-header {
+  display: flex; align-items: center; gap: 12px;
+  padding: 20px 24px; border-radius: 8px 8px 0 0; margin-bottom: 0;
+}
+.path-header.blue { background: var(--hb-green-dark); color: #fff; }
+.path-header.green { background: var(--hb-green-mid); color: #fff; }
+.path-icon { font-size: 24px; }
+.path-header h2 { font-size: 18px; font-weight: 700; }
+.path-header p { font-size: 12px; opacity: 0.8; margin-top: 2px; }
 
-  /* TABLES */
-  table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 14px; }
-  th { background: var(--blue-dark); color: #fff; padding: 8px 12px; text-align: left; font-weight: 600; }
-  td { padding: 8px 12px; border-bottom: 1px solid var(--gray-border); vertical-align: top; }
-  tr:nth-child(even) td { background: var(--gray-bg); }
+.card-grid {
+  border: 1px solid var(--gray-border); border-top: none;
+  border-radius: 0 0 8px 8px; overflow: hidden;
+}
+.nav-card {
+  display: flex; align-items: flex-start; gap: 14px;
+  padding: 16px 20px; background: #fff; cursor: pointer;
+  border-bottom: 1px solid var(--gray-border); transition: background 0.12s;
+  text-decoration: none; color: var(--text);
+}
+.nav-card:last-child { border-bottom: none; }
+.nav-card:hover { background: var(--hb-green-bg); }
+.nav-card:hover .card-title { color: var(--hb-green-mid); }
+.nav-card.green-card:hover .card-title { color: var(--hb-green-mid); }
+.card-badge {
+  flex-shrink: 0; width: 36px; height: 36px; border-radius: 6px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 11px; font-weight: 700; letter-spacing: 0.03em;
+}
+.card-badge.blue { background: var(--hb-green-light); color: var(--hb-green-dark); }
+.card-badge.green { background: var(--hb-green-light); color: var(--hb-green-dark); }
+.card-title { font-size: 14px; font-weight: 600; margin-bottom: 2px; }
+.card-desc { font-size: 12px; color: var(--text-muted); line-height: 1.4; }
+.card-arrow { margin-left: auto; font-size: 16px; color: var(--gray-border); align-self: center; }
 
-  /* CHECKLIST */
-  .checklist { list-style: none; margin-left: 0; }
-  .checklist li { padding: 5px 0 5px 28px; position: relative; }
-  .checklist li::before {
-    content: '☐'; position: absolute; left: 0; color: var(--blue-mid); font-size: 16px;
-  }
+/* ── CONTENT SECTIONS ── */
+.section { padding-top: 52px; border-top: 2px solid var(--hb-green-light); margin-top: 52px; }
+.section:first-child { border-top: none; margin-top: 0; padding-top: 0; }
+.section-tag {
+  display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: 0.08em;
+  text-transform: uppercase; padding: 3px 10px; border-radius: 2px; margin-bottom: 10px;
+}
+.tag-veileder { background: var(--hb-green-dark); color: #fff; }
+.tag-pakke { background: var(--hb-green-mid); color: #fff; }
+h1 { font-size: 28px; font-weight: 800; color: var(--hb-green-dark); margin-bottom: 6px; line-height: 1.3; }
+h2 { font-size: 19px; font-weight: 700; color: var(--hb-green-dark); margin: 28px 0 8px; }
+h3 { font-size: 15px; font-weight: 700; color: var(--text); margin: 20px 0 6px; }
+p { margin-bottom: 13px; }
+ul, ol { margin: 8px 0 13px 22px; }
+li { margin-bottom: 5px; }
+strong { font-weight: 600; }
+a { color: var(--hb-green-mid); text-decoration: none; }
+a:hover { color: var(--hb-green-dark); text-decoration: underline; }
+.section-subtitle { font-size: 14px; color: var(--text-muted); margin-bottom: 22px; padding-bottom: 14px; border-bottom: 1px solid var(--gray-border); }
+blockquote { background: var(--hb-green-light); border-left: 4px solid var(--hb-green); padding: 14px 18px; margin: 16px 0; border-radius: 0 4px 4px 0; font-style: italic; }
+blockquote p { margin-bottom: 6px; }
+blockquote p:last-child { margin-bottom: 0; }
+.box { padding: 14px 18px; border-radius: 4px; margin: 16px 0; }
+.box-recommendation { background: var(--hb-green-bg); border-left: 4px solid var(--hb-green); }
+.box-recommendation::before { content: 'Husbankens anbefaling'; display: block; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--hb-green-mid); margin-bottom: 8px; }
+.box-warning { background: var(--orange-light); border-left: 4px solid var(--orange); }
+.box-warning::before { content: '⚠ Juridisk kvalitetssikring anbefales'; display: block; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--orange); margin-bottom: 8px; }
+.box-cite { background: var(--hb-green-light); border-left: 4px solid var(--hb-green-dark); }
+.box-cite::before { content: 'Til saksframlegget'; display: block; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--hb-green-dark); margin-bottom: 8px; }
+.box-scenario { background: #FFF8E6; border-left: 4px solid #c07a00; }
+.box-scenario::before { content: 'Scenario'; display: block; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #7a5000; margin-bottom: 8px; }
+table { width: 100%; border-collapse: collapse; margin: 14px 0; font-size: 14px; }
+th { background: var(--hb-green-dark); color: #fff; padding: 8px 12px; text-align: left; font-weight: 600; }
+td { padding: 8px 12px; border-bottom: 1px solid var(--gray-border); vertical-align: top; }
+tr:nth-child(even) td { background: var(--hb-green-bg); }
+.checklist { list-style: none; margin-left: 0; }
+.checklist li { padding: 5px 0 5px 28px; position: relative; }
+.checklist li::before { content: '☐'; position: absolute; left: 0; color: var(--hb-green-mid); font-size: 16px; }
+.resources { background: var(--hb-green-bg); border: 1px solid var(--hb-green-light); border-radius: 4px; padding: 14px 18px; margin: 18px 0; }
+.resources h4 { margin-top: 0; margin-bottom: 8px; color: var(--hb-green-dark); }
+.resources ul { margin-bottom: 0; }
+.dilemma { border: 1px solid var(--gray-border); border-radius: 4px; padding: 14px 18px; margin: 10px 0; }
+.dilemma-title { font-weight: 700; color: var(--hb-green-dark); margin-bottom: 6px; }
 
-  /* RESOURCE LIST */
-  .resources { background: var(--gray-bg); border: 1px solid var(--gray-border); border-radius: 4px; padding: 14px 18px; margin: 20px 0; }
-  .resources h4 { margin-top: 0; color: var(--blue-dark); }
-  .resources ul { margin-bottom: 0; }
-
-  /* DILEMMA */
-  .dilemma { border: 1px solid var(--gray-border); border-radius: 4px; padding: 14px 18px; margin: 12px 0; }
-  .dilemma-title { font-weight: 700; color: var(--blue-dark); margin-bottom: 6px; }
-
-  /* PRINT */
-  @media print {
-    #site-header, #sidebar, #menu-toggle { display: none !important; }
-    #main { margin-left: 0; margin-top: 0; max-width: 100%; padding: 20px; }
-    .section { page-break-before: always; }
-  }
-
-  /* RESPONSIVE */
-  @media (max-width: 768px) {
-    :root { --sidebar-w: 0px; }
-    #menu-toggle { display: block; }
-    #sidebar { transform: translateX(-280px); width: 280px; transition: transform 0.25s; }
-    #sidebar.open { transform: translateX(0); }
-    #main { margin-left: 0; padding: 24px 20px 60px; }
-  }
+/* ── PRINT ── */
+@media print {
+  #site-header, #sidebar, #home-page { display: none !important; }
+  #content-wrap { display: block !important; margin: 0; padding: 20px; max-width: 100%; }
+  #sidebar { display: none !important; }
+}
 </style>
 </head>
 <body>
 
 <header id="site-header">
-  <button id="menu-toggle" onclick="document.getElementById('sidebar').classList.toggle('open')">☰</button>
-  <span class="logo">Husbanken</span>
-  <span class="title">Veileder til boligsosialloven</span>
+  <span class="logo" onclick="showHome()">
+    <span class="logo-mark">H</span>
+    Husbanken
+  </span>
+  <span class="sep"></span>
+  <span class="site-title">Veileder til boligsosialloven</span>
+  <button id="back-btn" onclick="showHome()">← Tilbake til oversikt</button>
+  <button id="print-btn" onclick="window.print()">Skriv ut</button>
 </header>
 
+<!-- ══════════════════════════════════════
+     LANDINGSSIDE
+══════════════════════════════════════ -->
+<div id="home-page">
+  <div class="hero">
+    <h1>Boligsosialloven</h1>
+    <p class="sub">Husbankens implementeringsstøtte for kommunene</p>
+    <p class="meta">Lov 20. desember 2022 nr. 121 · I kraft 1. juli 2023</p>
+  </div>
+  <p class="home-intro">
+    Denne veilederen forklarer hva loven krever av kommunene, hva Husbanken anbefaler som god praksis, og hva som er kommunens handlingsrom. Velg hva du er ute etter under.
+  </p>
+
+  <div class="paths">
+
+    <!-- VEG 1: FORSTÅ LOVEN -->
+    <div class="path-section">
+      <div class="path-header blue">
+        <div>
+          <div class="path-icon">§</div>
+        </div>
+        <div>
+          <h2>Jeg vil forstå loven</h2>
+          <p>For ledere, fagpersoner, NAV og statsforvalter som trenger lovnær referanse</p>
+        </div>
+      </div>
+      <div class="card-grid">
+        <a class="nav-card" onclick="showSection('kap0')">
+          <div class="card-badge blue">00</div>
+          <div><div class="card-title">Om veilederen</div><div class="card-desc">Formål, målgruppe og sentrale kilder</div></div>
+          <span class="card-arrow">›</span>
+        </a>
+        <a class="nav-card" onclick="showSection('kap1')">
+          <div class="card-badge blue">§1–2</div>
+          <div><div class="card-title">Formål og virkeområde</div><div class="card-desc">Hvem loven gjelder for og hva den krever</div></div>
+          <span class="card-arrow">›</span>
+        </a>
+        <a class="nav-card" onclick="showSection('kap2')">
+          <div class="card-badge blue">§3</div>
+          <div><div class="card-title">Ansvarlig kommune</div><div class="card-desc">Oppholdsprinsippet, institusjon, flyktninger</div></div>
+          <span class="card-arrow">›</span>
+        </a>
+        <a class="nav-card" onclick="showSection('kap3')">
+          <div class="card-badge blue">§4</div>
+          <div><div class="card-title">Vanskeligstilte på boligmarkedet</div><div class="card-desc">Hvem som har krav på bistand og vilkårene</div></div>
+          <span class="card-arrow">›</span>
+        </a>
+        <a class="nav-card" onclick="showSection('kap4')">
+          <div class="card-badge blue">§5</div>
+          <div><div class="card-title">Organisering og planlegging</div><div class="card-desc">Samordning, boligbehov, kommuneplan</div></div>
+          <span class="card-arrow">›</span>
+        </a>
+        <a class="nav-card" onclick="showSection('kap5')">
+          <div class="card-badge blue">§6</div>
+          <div><div class="card-title">Individuelt tilpasset bistand</div><div class="card-desc">Aktivitetsplikten og bistandens former</div></div>
+          <span class="card-arrow">›</span>
+        </a>
+        <a class="nav-card" onclick="showSection('kap6')">
+          <div class="card-badge blue">§7</div>
+          <div><div class="card-title">Saksbehandling og klage</div><div class="card-desc">Enkeltvedtak, brukermedvirkning, klage til statsforvalteren</div></div>
+          <span class="card-arrow">›</span>
+        </a>
+        <a class="nav-card" onclick="showSection('kap7')">
+          <div class="card-badge blue">§8–9</div>
+          <div><div class="card-title">Behandling av personopplysninger</div><div class="card-desc">Behandlingshjemmel, innhenting, Folkeregisteret</div></div>
+          <span class="card-arrow">›</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- VEG 2: KONKRET SITUASJON -->
+    <div class="path-section">
+      <div class="path-header green">
+        <div>
+          <div class="path-icon">↗</div>
+        </div>
+        <div>
+          <h2>Jeg er i en konkret situasjon</h2>
+          <p>Raske oversikter tilpasset spesifikke hendelser – kan skrives ut og deles</p>
+        </div>
+      </div>
+      <div class="card-grid">
+        <a class="nav-card green-card" onclick="showSection('pakke1')">
+          <div class="card-badge green">P1</div>
+          <div><div class="card-title">Ny saksbehandler</div><div class="card-desc">Ny i en stilling med boligsosiale oppgaver</div></div>
+          <span class="card-arrow">›</span>
+        </a>
+        <a class="nav-card green-card" onclick="showSection('pakke2')">
+          <div class="card-badge green">P2</div>
+          <div><div class="card-title">Ny leder</div><div class="card-desc">Overtar ansvar for kommunens boligsosiale arbeid</div></div>
+          <span class="card-arrow">›</span>
+        </a>
+        <a class="nav-card green-card" onclick="showSection('pakke3')">
+          <div class="card-badge green">P3</div>
+          <div><div class="card-title">Kommuneplanrevisjon</div><div class="card-desc">Sikre boligsosiale hensyn i kommuneplanen</div></div>
+          <span class="card-arrow">›</span>
+        </a>
+        <a class="nav-card green-card" onclick="showSection('pakke4')">
+          <div class="card-badge green">P4</div>
+          <div><div class="card-title">Tilsynsforberedelse</div><div class="card-desc">Varsel om tilsyn fra statsforvalteren</div></div>
+          <span class="card-arrow">›</span>
+        </a>
+        <a class="nav-card green-card" onclick="showSection('pakke5')">
+          <div class="card-badge green">P5</div>
+          <div><div class="card-title">Akutt botilbud</div><div class="card-desc">Noen trenger bolig i dag</div></div>
+          <span class="card-arrow">›</span>
+        </a>
+        <a class="nav-card green-card" onclick="showSection('pakke6')">
+          <div class="card-badge green">P6</div>
+          <div><div class="card-title">Mottak av flyktninger</div><div class="card-desc">IMDi har anmodet om bosetting</div></div>
+          <span class="card-arrow">›</span>
+        </a>
+        <a class="nav-card green-card" onclick="showSection('pakke7')">
+          <div class="card-badge green">P7</div>
+          <div><div class="card-title">Politisk saksframlegg</div><div class="card-desc">Tekst klar til å klippe inn i politiske dokumenter</div></div>
+          <span class="card-arrow">›</span>
+        </a>
+        <a class="nav-card green-card" onclick="showSection('pakke8')">
+          <div class="card-badge green">P8</div>
+          <div><div class="card-title">NAV-samarbeid</div><div class="card-desc">Etablere eller revidere samarbeidsstrukturen</div></div>
+          <span class="card-arrow">›</span>
+        </a>
+        <a class="nav-card green-card" onclick="showSection('pakke9')">
+          <div class="card-badge green">P9</div>
+          <div><div class="card-title">Årshjul og internkontroll</div><div class="card-desc">Systematisk oppfølging gjennom året</div></div>
+          <span class="card-arrow">›</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     SIDEBAR
+══════════════════════════════════════ -->
 <nav id="sidebar">
   <div class="nav-group">
     <div class="nav-group-title">Veileder</div>
-    <a href="#om"><span class="num">00</span> Om veilederen</a>
-    <a href="#kap1"><span class="num">01</span> Formål og virkeområde</a>
-    <a href="#kap2"><span class="num">02</span> Ansvarlig kommune</a>
-    <a href="#kap3"><span class="num">03</span> Vanskeligstilte</a>
-    <a href="#kap4"><span class="num">04</span> Organisering og planlegging</a>
-    <a href="#kap5"><span class="num">05</span> Individuelt tilpasset bistand</a>
-    <a href="#kap6"><span class="num">06</span> Saksbehandling og klage</a>
-    <a href="#kap7"><span class="num">07</span> Personopplysninger</a>
+    <a href="#" onclick="showSection('kap0')"><span class="num">00</span> Om veilederen</a>
+    <a href="#" onclick="showSection('kap1')"><span class="num">§1–2</span> Formål og virkeområde</a>
+    <a href="#" onclick="showSection('kap2')"><span class="num">§3</span> Ansvarlig kommune</a>
+    <a href="#" onclick="showSection('kap3')"><span class="num">§4</span> Vanskeligstilte</a>
+    <a href="#" onclick="showSection('kap4')"><span class="num">§5</span> Organisering og planlegging</a>
+    <a href="#" onclick="showSection('kap5')"><span class="num">§6</span> Individuelt tilpasset bistand</a>
+    <a href="#" onclick="showSection('kap6')"><span class="num">§7</span> Saksbehandling og klage</a>
+    <a href="#" onclick="showSection('kap7')"><span class="num">§8–9</span> Personopplysninger</a>
   </div>
   <div class="nav-group">
     <div class="nav-group-title">Informasjonspakker</div>
-    <a href="#pakke1"><span class="num">P1</span> Ny saksbehandler</a>
-    <a href="#pakke2"><span class="num">P2</span> Ny leder</a>
-    <a href="#pakke3"><span class="num">P3</span> Kommuneplanrevisjon</a>
-    <a href="#pakke4"><span class="num">P4</span> Tilsynsforberedelse</a>
-    <a href="#pakke5"><span class="num">P5</span> Akutt botilbud</a>
-    <a href="#pakke6"><span class="num">P6</span> Mottak av flyktninger</a>
-    <a href="#pakke7"><span class="num">P7</span> Politisk saksframlegg</a>
-    <a href="#pakke8"><span class="num">P8</span> NAV-samarbeid</a>
-    <a href="#pakke9"><span class="num">P9</span> Årshjul og internkontroll</a>
+    <a href="#" onclick="showSection('pakke1')"><span class="num">P1</span> Ny saksbehandler</a>
+    <a href="#" onclick="showSection('pakke2')"><span class="num">P2</span> Ny leder</a>
+    <a href="#" onclick="showSection('pakke3')"><span class="num">P3</span> Kommuneplanrevisjon</a>
+    <a href="#" onclick="showSection('pakke4')"><span class="num">P4</span> Tilsynsforberedelse</a>
+    <a href="#" onclick="showSection('pakke5')"><span class="num">P5</span> Akutt botilbud</a>
+    <a href="#" onclick="showSection('pakke6')"><span class="num">P6</span> Mottak av flyktninger</a>
+    <a href="#" onclick="showSection('pakke7')"><span class="num">P7</span> Politisk saksframlegg</a>
+    <a href="#" onclick="showSection('pakke8')"><span class="num">P8</span> NAV-samarbeid</a>
+    <a href="#" onclick="showSection('pakke9')"><span class="num">P9</span> Årshjul og internkontroll</a>
   </div>
 </nav>
 
-<main id="main">
+<!-- ══════════════════════════════════════
+     INNHOLD
+══════════════════════════════════════ -->
+<main id="content-wrap">
 
-<!-- ==================== OM VEILEDEREN ==================== -->
-<section class="section" id="om">
+<!-- KAP 0 -->
+<div id="sec-kap0" class="sec-block">
+<section class="section">
   <span class="section-tag tag-veileder">Innledning</span>
   <h1>Om denne veilederen</h1>
   <p class="section-subtitle">Husbanken – Veileder til lov om kommunenes ansvar på det boligsosiale feltet (boligsosialloven)</p>
-
   <h2>Hva er denne veilederen?</h2>
-  <p>Denne veilederen er Husbankens implementeringsstøtte for boligsosialloven (lov 20. desember 2022 nr. 121 om kommunenes ansvar på det boligsosiale feltet, i kraft 1. juli 2023).</p>
-  <p>Veilederen forklarer hva loven krever av kommunene, hva Husbanken anbefaler som god praksis, og hva som er kommunens handlingsrom. Den er det stedet du går til når du vil vite: <em>Hva krever loven – og hva forventer Husbanken?</em></p>
-  <p><strong>Veilederen er ikke:</strong></p>
-  <ul>
-    <li>Saksbehandlingsstøtte i enkeltsaker – se <a href="https://www.husbanken.no/kobo/">Kobo</a></li>
-    <li>Kommunespesifikk rådgivning – kontakt <a href="https://www.husbanken.no/om-husbanken/kontakt/vare-kontor/">Husbankens regionkontor</a></li>
-    <li>Et strukturert opplæringsprogram – se <a href="https://www.husbanken.no/kommune/opplaring/">Husbankens kurs- og kompetansetilbud</a></li>
-    <li>En fullstendig oversikt over boligsosiale virkemidler – se <a href="https://www.husbanken.no/kommune/">øvrige sider på husbanken.no</a></li>
-  </ul>
-
+  <p>Denne veilederen er Husbankens implementeringsstøtte for boligsosialloven (lov 20. desember 2022 nr. 121, i kraft 1. juli 2023). Den forklarer hva loven krever av kommunene, hva Husbanken anbefaler som god praksis, og hva som er kommunens handlingsrom.</p>
+  <p><strong>Veilederen er ikke:</strong> saksbehandlingsstøtte i enkeltsaker (<a href="https://www.husbanken.no/kobo/">Kobo</a>), kommunespesifikk rådgivning (<a href="https://www.husbanken.no/om-husbanken/kontakt/vare-kontor/">regionkontor</a>), opplæringsprogram (<a href="https://www.husbanken.no/kommune/opplaring/">kurs</a>), eller fullstendig virkemiddeloversikt (<a href="https://www.husbanken.no/kommune/">husbanken.no</a>).</p>
   <h2>Hvem er veilederen for?</h2>
-  <p><strong>Primær målgruppe:</strong> Kommunale ledere med boligsosiale portefølje – kommunedirektører, sektorledere og boligkontorledere.</p>
-  <p><strong>Sekundær målgruppe:</strong> Saksbehandlere, NAV-ansatte, statsforvalteren og frivillig sektor som trenger en autoritativ referanse for lovkravene.</p>
-
-  <h2>Hvordan er veilederen bygget opp?</h2>
-  <p>Hvert kapittel følger én eller flere paragrafer i loven og har samme struktur: (1) Lovkravet, (2) Hva dette betyr for kommunen, (3) Husbankens anbefalinger, (4) Eksempler og typiske dilemmaer, (5) Sjekkliste og videre, (6) Til saksframlegget. Hvert kapittel kan leses selvstendig.</p>
-
+  <p><strong>Primær:</strong> Kommunale ledere med boligsosiale portefølje – kommunedirektører, sektorledere og boligkontorledere.</p>
+  <p><strong>Sekundær:</strong> Saksbehandlere, NAV-ansatte, statsforvalteren og frivillig sektor som trenger en autoritativ referanse for lovkravene.</p>
   <h2>Loven i korte trekk</h2>
-  <p>Boligsosialloven samler og skjerper kommunens ansvar på det boligsosiale feltet. Den viderefører i hovedsak plikter kommunene hadde gjennom medvirkningsansvaret i sosialtjenesteloven § 15 og helse- og omsorgstjenesteloven § 3-7, men innfører klarere krav til planlegging, saksbehandling og individuell bistand.</p>
   <table>
     <tr><th>Paragraf</th><th>Tema</th></tr>
     <tr><td>§ 1</td><td>Formål</td></tr>
@@ -214,260 +392,175 @@
     <tr><td>§ 8</td><td>Behandling av personopplysninger</td></tr>
     <tr><td>§ 9</td><td>Innhenting av opplysninger</td></tr>
   </table>
-
   <h2>Sentrale kilder</h2>
   <ul>
     <li><a href="https://lovdata.no/lov/2022-12-20-121">Boligsosialloven – lovdata.no</a></li>
-    <li><a href="https://www.regjeringen.no/no/dokumenter/prop.-132-l-20212022/id2919288/">Prop. 132 L (2021–2022)</a> – Lov om kommunenes ansvar på det boligsosiale feltet</li>
-    <li>Innst. 85 L (2022–2023) – Innstilling fra kommunal- og forvaltningskomiteen</li>
-    <li>Lovvedtak 19 (2022–2023)</li>
+    <li><a href="https://www.regjeringen.no/no/dokumenter/prop.-132-l-20212022/id2919288/">Prop. 132 L (2021–2022)</a></li>
+    <li>Innst. 85 L (2022–2023) · Lovvedtak 19 (2022–2023)</li>
     <li><a href="https://www.regjeringen.no/no/dokumenter/meld.-st.-13-20232024/id3029550/">Meld. St. 13 (2023–2024) – Bustadmeldinga</a></li>
-    <li><a href="https://www.regjeringen.no/no/dokumenter/nasjonal-strategi-for-den-sosiale-boligpolitikken-2021-2024/id2788470/">Nasjonal strategi «Alle trenger et trygt hjem» (2021–2024)</a></li>
   </ul>
 </section>
+</div>
 
-<!-- ==================== KAPITTEL 1 ==================== -->
-<section class="section" id="kap1">
+<!-- KAP 1 -->
+<div id="sec-kap1" class="sec-block">
+<section class="section">
   <span class="section-tag tag-veileder">Kapittel 1 · §§ 1–2</span>
   <h1>Lovens formål og virkeområde</h1>
   <p class="section-subtitle">Boligsosialloven trådte i kraft 1. juli 2023</p>
-
   <h2>Lovkravet</h2>
   <h3>§ 1 Formål</h3>
   <blockquote><p>Formålet med loven er å forebygge boligsosiale utfordringer og å bidra til at vanskeligstilte på boligmarkedet skal få bistand til å skaffe seg og beholde en egnet bolig.</p></blockquote>
-  <p>Formålsbestemmelsen har to sidestilte siktemål: forebygging og bistand. Disse er ikke alternative – kommunen skal gjøre begge. Forebygging retter seg mot kommunens helhetlige, planmessige arbeid (se <a href="#kap4">kapittel 4 om § 5</a>). Bistanden retter seg mot enkeltpersonen som er vanskeligstilt her og nå (se <a href="#kap5">kapittel 5 om § 6</a>).</p>
-  <p>Formålet presiserer at bistanden skal gjelde <em>skaffe seg</em> bolig og <em>beholde</em> bolig. Det betyr at kommunens ansvar ikke opphører når noen har fått hjelp inn i en bolig. Boligen skal være <em>egnet</em> – ikke bare en hvilken som helst bolig.</p>
-  <p><strong>Bakgrunn:</strong> Loven viderefører og skjerper plikter kommunene hadde gjennom medvirkningsansvaret i sosialtjenesteloven § 15 og helse- og omsorgstjenesteloven § 3-7. Forarbeider: Prop. 132 L (2021–2022), Innst. 85 L (2022–2023).</p>
-
+  <p>Formålsbestemmelsen har to sidestilte siktemål: forebygging og bistand. Kommunen skal gjøre begge. Bistanden gjelder både å <em>skaffe seg</em> og <em>beholde</em> bolig – ansvaret opphører ikke når noen har fått hjelp inn i en bolig. Boligen skal dessuten være <em>egnet</em>, ikke bare en hvilken som helst bolig. Forarbeider: Prop. 132 L (2021–2022), Innst. 85 L (2022–2023).</p>
   <h3>§ 2 Virkeområde</h3>
   <blockquote>
     <p>Loven gjelder for alle som oppholder seg i riket, med unntak av:</p>
     <p>a. personer som ikke har lovlig opphold i riket</p>
     <p>b. personer som har søkt om beskyttelse, og som har eller kan få statlig innkvartering</p>
     <p>c. personer som ikke er norske statsborgere, og som ikke har tilknytning til riket, med mindre annet følger av en folkerettslig avtale</p>
-    <p>Loven gjelder ikke på Svalbard.</p>
   </blockquote>
-  <p>Utgangspunktet er bredt: loven gjelder <em>alle</em> som oppholder seg i Norge. Unntakene er uttømmende.</p>
-  <p><strong>Unntak a</strong> – ulovlig opphold: Uten lovlig opphold faller personen utenfor loven. EØS-borgere med oppholdsrett omfattes av loven.</p>
-  <p><strong>Unntak b</strong> – asylsøkere med statlig innkvartering: Disse ivaretas av statens mottakssystem (UDI). Kommunen kan likevel ha andre plikter overfor denne gruppen etter sosialtjenesteloven.</p>
-  <p><strong>Unntak c</strong> – utenlandske statsborgere uten tilknytning: Tilknytningsvurderingen er en helhetsvurdering. Relevante momenter er: folkeregistrert adresse, ektefelle eller barn i Norge, medlemskap i folketrygden, oppholdets varighet og stabilitet. Jo lenger botid, desto sterkere tilknytning. Terskelen er høy (Prop. 132 L (2021–2022) pkt. 8.3.3).</p>
-
+  <p><strong>Unntak a</strong> – ulovlig opphold: EØS-borgere med oppholdsrett er likevel omfattet.</p>
+  <p><strong>Unntak b</strong> – asylsøkere med statlig innkvartering: Kommunen kan ha andre plikter etter sosialtjenesteloven.</p>
+  <p><strong>Unntak c</strong> – tilknytningsvurderingen er en helhetsvurdering. Relevante momenter: folkeregistrert adresse, ektefelle/barn i Norge, medlemskap i folketrygden, oppholdets varighet. Terskelen er høy (Prop. 132 L pkt. 8.3.3).</p>
   <h2>Hva dette betyr for kommunen</h2>
-  <p>Loven stiller kommunen som den sentrale og ansvarlige aktøren. Det innebærer to distinkte plikter:</p>
-  <p><strong>Systemansvar:</strong> Kommunen skal forebygge boligsosiale utfordringer gjennom planlegging, organisering og samarbeid. Dette er et kontinuerlig, systemrettet arbeid.</p>
-  <p><strong>Individansvar:</strong> Kommunen skal gi bistand til den enkelte som er vanskeligstilt. Dette utløses av kontakt med kommunen og resulterer i et enkeltvedtak.</p>
-  <p>En undersøkelse fra Gatejuristen (Kirkens Bymisjon, 2025) viser at om lag 40 prosent av henvendelser om bistand ikke ble besvart, og at gjennomsnittlig saksbehandlingstid var fire måneder. Dette understreker behovet for internkontroll og tydelig organisering.</p>
-
+  <p><strong>Systemansvar:</strong> Kommunen skal forebygge boligsosiale utfordringer gjennom planlegging, organisering og samarbeid.</p>
+  <p><strong>Individansvar:</strong> Kommunen skal gi bistand til den enkelte som er vanskeligstilt. En undersøkelse fra Gatejuristen (Kirkens Bymisjon, 2025) viser at om lag 40 prosent av henvendelser ikke ble besvart og at gjennomsnittlig saksbehandlingstid var fire måneder.</p>
   <h2>Husbankens anbefalinger</h2>
   <div class="box box-recommendation">
-    <p>Husbanken anbefaler at kommunen bruker formålsbestemmelsen aktivt i politiske dokumenter og faglig begrunnelse av prioriteringer. Kommunen bør ha klare interne rutiner for håndtering av henvendelser fra personer med usikker tilknytning (unntak c) – slike vurderinger bør ikke avgjøres av den enkelte saksbehandler uten faglig forankring.</p>
+    <p>Husbanken anbefaler at kommunen bruker formålsbestemmelsen aktivt i politiske dokumenter. Tilknytningsvurderingen (§ 2 c) bør ikke avgjøres av den enkelte saksbehandler uten faglig forankring – ta inn rutiner for dette i saksbehandlingssystemet.</p>
   </div>
-
   <h2>Eksempler og typiske dilemmaer</h2>
-  <div class="dilemma"><p class="dilemma-title">EØS-borger uten fast arbeid</p><p>En rumensk statsborger uten fast arbeid, men med barn i norsk skole og folkeregistrert adresse, henvender seg til kommunen. Her må kommunen gjøre en konkret vurdering av oppholdsrett etter EØS-regelverket og tilknytning etter § 2 bokstav c. Husbanken anbefaler at kommunen innhenter bistand fra regionkontoret i tvilstilfeller.</p></div>
-  <div class="dilemma"><p class="dilemma-title">Asylsøker uten innkvarteringstilbud</p><p>En asylsøker takker nei til statlig innkvartering, eller det finnes ikke plass. Unntaket i § 2 b) gjelder kun dem som «har eller <em>kan</em> få» statlig innkvartering. Dersom statlig innkvartering ikke er tilgjengelig, kan kommunens ansvar etter sosialtjenesteloven § 27 inntre.</p></div>
-  <div class="dilemma"><p class="dilemma-title">Kan kommunen avslå fordi situasjonen er selvforskyldt?</p><p>Nei. Loven stiller ikke krav om årsak til vanskeligstillingen (jf. § 4 og forarbeidene).</p></div>
-
+  <div class="dilemma"><p class="dilemma-title">EØS-borger uten fast arbeid</p><p>Rumensk statsborger uten fast arbeid, men med barn i norsk skole og folkeregistrert adresse. Kommunen må gjøre en konkret vurdering av oppholdsrett og tilknytning. Kontakt regionkontoret i tvilstilfeller.</p></div>
+  <div class="dilemma"><p class="dilemma-title">Asylsøker uten innkvarteringstilbud</p><p>Unntaket i § 2 b gjelder kun dem som «har eller <em>kan</em> få» statlig innkvartering. Dersom dette ikke er tilgjengelig, kan kommunens ansvar etter sosialtjenesteloven § 27 inntre.</p></div>
+  <div class="dilemma"><p class="dilemma-title">Selvforskyldt situasjon</p><p>Kommunen kan ikke avslå med at situasjonen er selvforskyldt. Loven stiller ikke krav om årsak til vanskeligstillingen (jf. § 4).</p></div>
   <h2>Sjekkliste</h2>
   <ul class="checklist">
     <li>Kjenner ansatte med boligsosiale oppgaver lovens formål?</li>
     <li>Har kommunen rutiner for tilknytningsvurderingen for utenlandske statsborgere?</li>
-    <li>Er det avklart hvem som vurderer lovlig opphold og tilknytning?</li>
-    <li>Fanger kommunen opp henvendelser om bistand uavhengig av form?</li>
+    <li>Fanger kommunen opp henvendelser uavhengig av form?</li>
   </ul>
-
-  <div class="resources">
-    <h4>Videre ressurser</h4>
-    <ul>
-      <li><a href="https://lovdata.no/lov/2022-12-20-121">Lovtekst – lovdata.no</a></li>
-      <li><a href="https://www.regjeringen.no/no/dokumenter/prop.-132-l-20212022/id2919288/">Prop. 132 L (2021–2022)</a></li>
-      <li><a href="https://www.husbanken.no/kobo/">Kobo – saksbehandlingsstøtte</a></li>
-      <li><a href="https://www.husbanken.no/om-husbanken/kontakt/vare-kontor/">Husbankens regionkontor</a></li>
-    </ul>
-  </div>
-
-  <div class="box box-cite">
-    <p>Boligsosialloven (lov 20. desember 2022 nr. 121, i kraft 1. juli 2023) pålegger kommunen å forebygge boligsosiale utfordringer og gi individuelt tilpasset bistand til vanskeligstilte på boligmarkedet. Loven gjelder alle som oppholder seg i kommunen og har lovlig tilknytning til riket. Ansvaret omfatter både et systemrettet planleggingsansvar og et individuelt bistandsansvar overfor den enkelte som henvender seg til kommunen.</p>
-  </div>
-  <div class="box box-warning"><p>Tolkningen av § 2 bokstav c (tilknytningsvurdering) og grensesnittet mot EØS-regelverket bør kvalitetssikres juridisk – dette beror på en sammensatt rettslig vurdering som kan endres gjennom rettspraksis.</p></div>
+  <div class="box box-cite"><p>Boligsosialloven (lov 20. desember 2022 nr. 121, i kraft 1. juli 2023) pålegger kommunen å forebygge boligsosiale utfordringer og gi individuelt tilpasset bistand til vanskeligstilte på boligmarkedet. Loven gjelder alle som oppholder seg i kommunen og har lovlig tilknytning til riket. Ansvaret omfatter både et systemrettet planleggingsansvar og et individuelt bistandsansvar overfor den enkelte som henvender seg til kommunen.</p></div>
+  <div class="box box-warning"><p>Tolkningen av § 2 bokstav c og grensesnittet mot EØS-regelverket bør kvalitetssikres juridisk.</p></div>
 </section>
+</div>
 
-<!-- ==================== KAPITTEL 2 ==================== -->
-<section class="section" id="kap2">
+<!-- KAP 2 -->
+<div id="sec-kap2" class="sec-block">
+<section class="section">
   <span class="section-tag tag-veileder">Kapittel 2 · § 3</span>
   <h1>Ansvarlig kommune</h1>
   <p class="section-subtitle">Boligsosialloven § 3</p>
-
   <h2>Lovkravet</h2>
   <blockquote>
     <p>Kommunens ansvar for å gi individuelt tilpasset bistand etter § 6 gjelder alle som oppholder seg i kommunen.</p>
     <p>For den som oppholder seg i institusjon eller bolig med heldøgns omsorgstjenester, skal individuelt tilpasset bistand likevel gis av den kommunen som var oppholdskommune forut for inntaket.</p>
     <p>En person som er bosatt i en kommune som mottar integreringstilskudd for vedkommende, har rett til bistand i denne kommunen. Hvis en person som nevnt i første punktum flytter til en annen kommune, har vedkommende rett til bistand der, dersom flyttingen er avtalt mellom de to kommunene.</p>
   </blockquote>
-
-  <h3>Oppholdsprinsippet (første ledd)</h3>
-  <p>Hovedregelen er at <em>oppholdskommunen</em> er ansvarlig – ikke der vedkommende er folkeregistrert. Kommunen kan ikke kreve botid. Svært kortvarig opphold (gjennomreise, besøk) faller utenfor.</p>
-
-  <h3>Institusjon og heldøgns omsorgstjenester (andre ledd)</h3>
-  <p>For den som er innlagt på institusjon eller bor i bolig med heldøgns omsorgstjenester, er kommunen der personen bodde <em>forut for inntaket</em> ansvarlig. Plassering i institusjon i en annen kommune endrer ikke ansvaret. Plikten gjelder både under og etter oppholdet. Ansvaret kan overføres ved eksplisitt avtale.</p>
-
-  <h3>Flyktninger og integreringstilskudd (tredje ledd)</h3>
-  <p>For flyktninger kommunen har bosatt og mottar integreringstilskudd for, er <em>bosettingskommunen</em> ansvarlig. Uavtalt utflytting gir ikke automatisk ansvarsovergang.</p>
-
+  <h3>Oppholdsprinsippet</h3>
+  <p>Hovedregelen er at <em>oppholdskommunen</em> er ansvarlig – ikke der vedkommende er folkeregistrert. Det kan ikke kreves botid. Svært kortvarig opphold (gjennomreise, besøk) faller utenfor.</p>
+  <h3>Institusjon og heldøgns omsorgstjenester</h3>
+  <p>Kommunen der personen bodde <em>forut for inntaket</em> er ansvarlig. Plassering i institusjon i en annen kommune endrer ikke ansvaret. Plikten gjelder under og etter oppholdet. Ansvaret kan overføres ved eksplisitt avtale.</p>
+  <h3>Flyktninger og integreringstilskudd</h3>
+  <p>Bosettingskommunen er ansvarlig. Uavtalt utflytting gir ikke automatisk ansvarsovergang.</p>
   <h2>Hva dette betyr for kommunen</h2>
-  <p><strong>Utskrivning fra institusjon:</strong> Opprinnelig oppholdskommune er ansvarlig – ikke institusjons­kommunen. Planlegging av bolig etter utskrivning bør starte senest seks måneder i forveien.</p>
-  <p><strong>Løslatelse fra fengsel:</strong> Kommunen der personen hadde opphold forut for innsettelse er ansvarlig. Sen varsling er en kjent utfordring.</p>
-  <p><strong>Flyktninger som flytter uavtalt:</strong> Bosettingskommunen er fortsatt ansvarlig for bistand etter boligsosialloven. Den nye kommunen kan ha plikt til akuttbistand etter sosialtjenesteloven.</p>
-
+  <p><strong>Utskrivning fra institusjon:</strong> Planlegging bør starte senest seks måneder i forveien. <strong>Løslatelse fra fengsel:</strong> Sen varsling er en kjent utfordring – ha faste rutiner med kriminalomsorgen. <strong>Flyktninger som flytter uavtalt:</strong> Bosettingskommunen er fortsatt ansvarlig; ny kommune kan ha plikt til akuttbistand etter sosialtjenesteloven.</p>
   <h2>Husbankens anbefalinger</h2>
-  <div class="box box-recommendation">
-    <p>Husbanken anbefaler skriftlige rutiner for ansvarsavklaring ved institusjonsutskrivning, løslatelse fra fengsel og mottak av flyktninger. Inngå samarbeidsavtaler med lokale institusjoner om tidlig varsling av forestående utskrivning. For flyktninger bør kommunen ha etablert kontakt med IMDi og klare rutiner for hva som skjer ved ønske om å flytte til annen kommune.</p>
-  </div>
-
+  <div class="box box-recommendation"><p>Husbanken anbefaler skriftlige rutiner for ansvarsavklaring ved institusjonsutskrivning, løslatelse fra fengsel og mottak av flyktninger. Inngå samarbeidsavtaler med lokale institusjoner om tidlig varsling.</p></div>
   <h2>Eksempler og typiske dilemmaer</h2>
-  <div class="dilemma"><p class="dilemma-title">Pasienten utskrives over kommunegrensen</p><p>En person fra kommune A har vært innlagt ved sykehus i kommune B i åtte måneder og trenger bolig etter utskrivning. Hvem er ansvarlig? Kommune A – som var oppholdskommune forut for inntaket. Kommune B kan ikke avvise, men kommunene kan avtale overføring av ansvar.</p></div>
-  <div class="dilemma"><p class="dilemma-title">Domfelt med uklart hjemsted</p><p>En løslatt person har ikke hatt fast bosted på flere år. Oppholdsprinsippet gjelder: kommunen der vedkommende faktisk befinner seg ved løslatelse er ansvarlig, med mindre annet er avtalt.</p></div>
-  <div class="dilemma"><p class="dilemma-title">Flyktning som nekter å bo i bosettingskommunen</p><p>Uten avtale mellom kommunene har storbyen ingen plikt til bistand etter boligsosialloven, men kan ha plikt til akuttbistand etter sosialtjenesteloven. Situasjonen løses best gjennom tidlig dialog mellom kommunene og IMDi.</p></div>
-
+  <div class="dilemma"><p class="dilemma-title">Pasienten utskrives over kommunegrensen</p><p>Person fra kommune A innlagt ved sykehus i kommune B. Hvem er ansvarlig? Kommune A – som var oppholdskommune forut for inntaket. Kommunene kan avtale overføring av ansvar.</p></div>
+  <div class="dilemma"><p class="dilemma-title">Domfelt med uklart hjemsted</p><p>Oppholdsprinsippet gjelder: kommunen der vedkommende faktisk befinner seg ved løslatelse er ansvarlig, med mindre annet er avtalt.</p></div>
   <h2>Sjekkliste</h2>
   <ul class="checklist">
     <li>Har kommunen rutiner for ansvarsavklaring ved institusjonsutskrivning?</li>
-    <li>Er det etablert kontaktpunkter og varslingsprosedyrer med lokale institusjoner?</li>
-    <li>Har kommunen avtaler med nærliggende kommuner om ansvarsovergang?</li>
+    <li>Er det etablert kontaktpunkter med lokale institusjoner?</li>
     <li>Er ansvaret for flyktninger som vurderer å flytte avklart med IMDi?</li>
   </ul>
-
-  <div class="box box-cite">
-    <p>Etter boligsosialloven § 3 er den kommunen der personen oppholder seg, ansvarlig for individuelt tilpasset bistand. For den som er innlagt i institusjon, ligger ansvaret hos kommunen som var oppholdskommune forut for inntaket – ansvaret gjelder også under og etter oppholdet. For bosatte flyktninger er bosettingskommunen ansvarlig så lenge ansvaret ikke er avtalt overført.</p>
-  </div>
-  <div class="box box-warning"><p>§ 3 tredje ledd (flyktninger som flytter uavtalt) i kombinasjon med integreringsloven bør kvalitetssikres juridisk – dette berører forholdet mellom to regelverk og kan ha endret seg gjennom rundskriv eller IMDi-praksis.</p></div>
+  <div class="box box-cite"><p>Etter boligsosialloven § 3 er den kommunen der personen oppholder seg, ansvarlig for individuelt tilpasset bistand. For den som er innlagt i institusjon, ligger ansvaret hos kommunen som var oppholdskommune forut for inntaket – ansvaret gjelder også under og etter oppholdet. For bosatte flyktninger er bosettingskommunen ansvarlig så lenge ansvaret ikke er avtalt overført.</p></div>
+  <div class="box box-warning"><p>§ 3 tredje ledd (flyktninger som flytter uavtalt) i kombinasjon med integreringsloven bør kvalitetssikres juridisk.</p></div>
 </section>
+</div>
 
-<!-- ==================== KAPITTEL 3 ==================== -->
-<section class="section" id="kap3">
+<!-- KAP 3 -->
+<div id="sec-kap3" class="sec-block">
+<section class="section">
   <span class="section-tag tag-veileder">Kapittel 3 · § 4</span>
   <h1>Vanskeligstilte på boligmarkedet</h1>
   <p class="section-subtitle">Boligsosialloven § 4</p>
-
   <h2>Lovkravet</h2>
   <blockquote><p>Med vanskeligstilte på boligmarkedet menes i denne loven personer som ikke kan ivareta sine interesser på boligmarkedet, og derfor trenger bistand til å skaffe eller beholde en egnet bolig.</p></blockquote>
-
-  <p>Definisjonen har to kumulative vilkår som begge må være oppfylt:</p>
-  <ol>
-    <li><strong>Personen kan ikke ivareta sine interesser på boligmarkedet.</strong> Årsaken er uten betydning.</li>
-    <li><strong>Personen trenger bistand til å skaffe eller beholde en egnet bolig.</strong> Behovet må være knyttet til boligsituasjonen.</li>
-  </ol>
-
-  <p>Vurderingen er alltid individuell og konkret. Forarbeidene peker på relevante momenter (Prop. 132 L (2021–2022) pkt. 9.3.2): helse- og omsorgsmessige behov, sosiale forhold, muligheter for privatliv og familieliv, behov for arbeid eller utdanning, situasjonens varighet. Det er relevant å se på <em>husstandens samlede situasjon</em>.</p>
-
+  <p>To kumulative vilkår som begge må være oppfylt: (1) personen kan ikke ivareta sine interesser på boligmarkedet – årsaken er uten betydning; (2) personen trenger bistand knyttet til boligsituasjonen.</p>
+  <p>Vurderingen er alltid individuell og konkret. Relevante momenter (Prop. 132 L pkt. 9.3.2): helse- og omsorgsmessige behov, sosiale forhold, familieperspektiv, arbeid/utdanning, situasjonens varighet. Det er relevant å se på husstandens samlede situasjon.</p>
   <h3>Typiske grupper</h3>
-  <p>Bostedsløse, de som står i fare for å miste boligen, de som bor i uegnet bolig eller bomiljø, personer med rusproblemer eller psykiske lidelser, barnefamilier i vanskelig økonomi, unge voksne i etableringsfasen med særlige utfordringer, flyktninger, løslatte fra fengsel og personer med funksjonsnedsettelse.</p>
-
+  <p>Bostedsløse, de i fare for utkastelse, de som bor i uegnet bolig, personer med rusproblemer eller psykiske lidelser, barnefamilier i vanskelig økonomi, unge med særlige utfordringer, flyktninger, løslatte fra fengsel, personer med funksjonsnedsettelse.</p>
   <h3>Hva faller utenfor?</h3>
-  <p>De som på noe sikt kan opparbeide kapital til å kjøpe eller leie egnet bolig på egenhånd. Typisk: studenter og unge i normal etableringsfase uten særlige utfordringer. <strong>Viktig forbehold:</strong> Selv en student kan være vanskeligstilt etter en konkret vurdering. Kommunen kan ikke avvise med at «dette er typisk for aldersgruppen».</p>
-
+  <p>De som på noe sikt kan skaffe egnet bolig på egenhånd – typisk studenter og unge i normal etableringsfase. <strong>Forbehold:</strong> Kommunen kan ikke avvise med at «dette er typisk for aldersgruppen» – en konkret vurdering må alltid gjøres.</p>
   <h2>Hva dette betyr for kommunen</h2>
-  <p><strong>Kommunen kan ikke avvise uten vurdering.</strong> Plikten til å vurdere om personen er vanskeligstilt utløses av enhver henvendelse. Selve avgjørelsen er et enkeltvedtak.</p>
-  <p><strong>Årsaken til vanskeligstillingen er irrelevant.</strong> Kommunen kan ikke avvise bistand med at situasjonen er «selvforskyldt».</p>
-  <p><strong>Egnethetsvilkåret:</strong> En bolig som ikke er egnet for personen oppfyller ikke kommunens bistandsplikt.</p>
-
+  <p><strong>Kommunen kan ikke avvise uten vurdering.</strong> Selve avgjørelsen er et enkeltvedtak. <strong>Årsaken er irrelevant.</strong> «Selvforskyldt» er ikke et lovlig avslagsgrunnlag. <strong>Egnethetsvilkåret</strong> betyr at en upassende bolig ikke oppfyller bistandsplikten.</p>
   <h2>Husbankens anbefalinger</h2>
-  <div class="box box-recommendation">
-    <p>Husbanken anbefaler at kommunens vurdering bygger på en strukturert kartlegging – ikke bare boligøkonomiske forhold, men også helse, sosiale nettverk og husstandens sammensetning. Krav om skriftlig søknad bør ikke praktiseres rigid. For vedtak om avslag er det særlig viktig at begrunnelsen viser at § 4-vilkårene er vurdert individuelt.</p>
-  </div>
-
+  <div class="box box-recommendation"><p>Husbanken anbefaler strukturert kartlegging av den enkeltes situasjon – ikke bare boligøkonomiske forhold. Krav om skriftlig søknad bør ikke praktiseres rigid. Avslag skal inneholde individuell begrunnelse som viser at § 4-vilkårene er vurdert.</p></div>
   <h2>Eksempler og typiske dilemmaer</h2>
-  <div class="dilemma"><p class="dilemma-title">Ung med normal økonomi, men særlige behov</p><p>En 25-åring med autisme og fast deltidsjobb klarer ikke å finne en egnet leilighet. Er vedkommende vanskeligstilt? Ja – den konkrete situasjonen gjør at personen ikke kan ivareta sine interesser, til tross for en viss inntekt.</p></div>
-  <div class="dilemma"><p class="dilemma-title">Midlertidig krise</p><p>Et par med barn kastes ut etter samlivsbrudd. Den ene forelderen har middels inntekt, men kan ikke skaffe bolig på kort sikt. Vanskeligstilt? Ja – loven krever ikke at utfordringene er varige.</p></div>
-  <div class="dilemma"><p class="dilemma-title">Selvforskyldt bostedsløshet</p><p>En person misligholdt leiekontrakten og ble kastet ut. Kan kommunen avslå? Nei – årsaken er ikke et lovlig avslagsgrunnlag. Kommunen skal vurdere om personen nå er vanskeligstilt.</p></div>
-
+  <div class="dilemma"><p class="dilemma-title">Ung med normal økonomi, men særlige behov</p><p>25-åring med autisme og deltidsjobb klarer ikke finne egnet leilighet. Vanskeligstilt? Ja – den konkrete situasjonen gjør at personen ikke kan ivareta sine interesser, til tross for en viss inntekt.</p></div>
+  <div class="dilemma"><p class="dilemma-title">Midlertidig krise</p><p>Par kastes ut etter samlivsbrudd. Loven krever ikke at utfordringene er varige – kommunen bør gi bistand selv om situasjonen forventes å bedre seg.</p></div>
+  <div class="dilemma"><p class="dilemma-title">Selvforskyldt bostedsløshet</p><p>Kommunen kan ikke avslå fordi personen misligholdt leiekontrakten. Årsaken er ikke et lovlig avslagsgrunnlag.</p></div>
   <h2>Sjekkliste</h2>
   <ul class="checklist">
     <li>Kjenner saksbehandlerne de to kumulative vilkårene i § 4?</li>
-    <li>Har kommunen et kartleggingsverktøy som fanger opp helse og sosiale forhold?</li>
-    <li>Vet saksbehandlerne at årsaken til vanskeligstillingen er uten betydning?</li>
-    <li>Sikrer rutinene at alle henvendelser faktisk vurderes?</li>
-    <li>Inneholder vedtak om avslag en individuell begrunnelse?</li>
+    <li>Har kommunen kartleggingsverktøy som fanger opp helse og sosiale forhold?</li>
+    <li>Sikrer rutinene at alle henvendelser vurderes, uavhengig av form?</li>
+    <li>Inneholder vedtak om avslag individuell begrunnelse?</li>
   </ul>
-
-  <div class="box box-cite">
-    <p>Med «vanskeligstilte på boligmarkedet» menes etter boligsosialloven § 4 personer som ikke kan ivareta sine interesser på boligmarkedet og derfor trenger bistand til å skaffe eller beholde en egnet bolig. Vurderingen er alltid individuell og konkret – årsaken til vanskeligstillingen er uten betydning. Vilkåret er en forutsetning for kommunens bistandsplikt etter § 6, og en avgjørelse om hvem som oppfyller det, er et enkeltvedtak som kan påklages til statsforvalteren.</p>
-  </div>
+  <div class="box box-cite"><p>Med «vanskeligstilte på boligmarkedet» menes etter boligsosialloven § 4 personer som ikke kan ivareta sine interesser på boligmarkedet og derfor trenger bistand til å skaffe eller beholde en egnet bolig. Vurderingen er alltid individuell og konkret – årsaken til vanskeligstillingen er uten betydning. En avgjørelse om hvem som oppfyller vilkåret, er et enkeltvedtak som kan påklages til statsforvalteren.</p></div>
 </section>
+</div>
 
-<!-- ==================== KAPITTEL 4 ==================== -->
-<section class="section" id="kap4">
+<!-- KAP 4 -->
+<div id="sec-kap4" class="sec-block">
+<section class="section">
   <span class="section-tag tag-veileder">Kapittel 4 · § 5</span>
   <h1>Organisering, planlegging og samarbeid</h1>
   <p class="section-subtitle">Boligsosialloven § 5</p>
-
   <h2>Lovkravet</h2>
   <blockquote>
     <p>Kommunen skal i sitt arbeid på det boligsosiale feltet sørge for samarbeid på tvers av sektorer og samordning av sine tjenester. For øvrig skal kommunen samarbeide med andre offentlige aktører som kan bidra til arbeidet for vanskeligstilte på boligmarkedet.</p>
     <p>Kommunen skal ha en oversikt over behovet for både ordinære og tilpassede boliger for vanskeligstilte på boligmarkedet. Oversikten skal inngå som grunnlag for arbeidet med kommunens planstrategi etter plan- og bygningsloven § 10-1.</p>
     <p>Kommunen skal i sitt arbeid med kommuneplanen etter plan- og bygningsloven kapittel 11 fastsette overordnede mål og strategier for det boligsosiale arbeidet.</p>
   </blockquote>
-
-  <p>§ 5 er lovens systemrettede bestemmelse. Tre selvstendige plikter: samordning og samarbeid, oversikt over boligbehovet, og boligsosiale mål i kommuneplanen.</p>
-
-  <h3>Samordning og samarbeid (første ledd)</h3>
-  <p><strong>Internt:</strong> Samarbeid på tvers av sektorer – boligtjeneste, NAV, helse- og omsorgstjenester, barnevern, rus- og psykiatritjenester. Loven krever at kommunen aktivt motvirker silodannelse.</p>
-  <p><strong>Eksternt:</strong> Forarbeidene nevner særlig NAV, statsforvalteren, Husbanken, kriminalomsorgen, spesialisthelsetjenesten og Bufetat. Bestemmelsen fastsetter en <em>aktivitetsplikt</em> – det holder ikke å vente på at andre tar kontakt.</p>
-
-  <h3>Oversikt over boligbehovet (andre ledd)</h3>
-  <p>Oversikten skal dekke både ordinære og tilpassede boliger og holdes oppdatert. Den skal danne grunnlag for planstrategi etter plan- og bygningsloven § 10-1 (vedtas hvert fjerde år).</p>
-
-  <h3>Boligsosiale mål i kommuneplanen (tredje ledd)</h3>
-  <p>Overordnede mål og strategier skal fremgå av kommuneplanen – ikke bare av en separat boligsosial plan. Dette gir boligsosiale hensyn juridisk forankring i kommunens øverste plan.</p>
-
+  <p>§ 5 er lovens systemrettede bestemmelse med tre selvstendige plikter: samordning og samarbeid, oversikt over boligbehovet, og boligsosiale mål i kommuneplanen.</p>
+  <h3>Samordning og samarbeid</h3>
+  <p><strong>Internt:</strong> Samarbeid på tvers av sektorer – boligtjeneste, NAV, helse, barnevern, rus og psykiatri. Loven krever aktiv motvirkning av silodannelse. <strong>Eksternt:</strong> NAV, statsforvalteren, Husbanken, kriminalomsorgen, spesialisthelsetjenesten og Bufetat (Prop. 132 L pkt. 10.3.2). Dette er en <em>aktivitetsplikt</em> – kommunen skal ikke vente på at andre tar kontakt.</p>
+  <h3>Oversikt over boligbehovet</h3>
+  <p>Skal dekke ordinære og tilpassede boliger og holdes oppdatert som grunnlag for planstrategien (vedtas hvert fjerde år etter valg).</p>
+  <h3>Boligsosiale mål i kommuneplanen</h3>
+  <p>Målene skal fremgå av selve kommuneplanen – ikke bare av en separat boligsosial plan. Dette gir boligsosiale hensyn juridisk forankring i kommunens øverste plan.</p>
   <h2>Hva dette betyr for kommunen</h2>
-  <p><strong>Politisk nivå:</strong> Boligsosiale mål skal inn i kommuneplanen – krever politisk behandling og forankring.</p>
-  <p><strong>Administrativt nivå:</strong> Kommunedirektøren har ansvar for samordning på tvers av sektorer med klare ansvarslinjer og etablerte samarbeidsarenaer.</p>
-  <p><strong>Faglig/operativt nivå:</strong> Boligkontorer og saksbehandlere må ha tilgang til oppdatert oversikt over boligbehovet.</p>
-
+  <p><strong>Politisk nivå:</strong> Boligsosiale mål krever politisk behandling. <strong>Administrativt nivå:</strong> Kommunedirektøren har ansvar for samordning på tvers. <strong>Operativt nivå:</strong> Boligkontorer og saksbehandlere må ha tilgang til oppdatert boligbehovsanalyse.</p>
   <h2>Husbankens anbefalinger</h2>
   <div class="box box-recommendation">
-    <p><strong>Boligsosial plan som operativt verktøy:</strong> Husbanken anbefaler en egen boligsosial handlingsplan med tiltak, ansvar og tidsfrister – som konkretiserer kommuneplanens overordnede mål uten å kreve revisjon av kommuneplanen.</p>
-    <p><strong>Tverrsektorielle boligteam:</strong> Kommuner med fast tverrsektoriell arena (boligteam, koordineringsforum) rapporterer bedre samhandling og færre «mellom stolene»-situasjoner. Husbanken anbefaler at et slikt forum møtes jevnlig med mandat til å treffe koordineringsbeslutninger.</p>
-    <p><strong>Samarbeidsavtaler:</strong> Skriftlige samarbeidsavtaler med NAV, spesialisthelsetjenesten og kriminalomsorgen der ansvarsforhold og informasjonsflyt er avklart.</p>
+    <p><strong>Boligsosial plan:</strong> En egen handlingsplan med tiltak, ansvar og tidsfrister konkretiserer kommuneplanens mål – og kan revideres uten å revidere kommuneplanen.<br><br>
+    <strong>Tverrsektorielt boligteam:</strong> Fast tverrsektoriell arena med mandat til å treffe koordineringsbeslutninger.<br><br>
+    <strong>Skriftlige samarbeidsavtaler</strong> med NAV, spesialisthelsetjenesten og kriminalomsorgen.</p>
   </div>
-
   <h2>Eksempler og typiske dilemmaer</h2>
-  <div class="dilemma"><p class="dilemma-title">Boligsosiale mål er for vage</p><p>«Kommunen skal legge til rette for gode boforhold for alle» er sannsynligvis ikke godt nok. Mål som «redusere antall bostedsløse med 50 prosent innen 2027» er mer operasjonaliserbare og gir faktisk styring.</p></div>
-  <div class="dilemma"><p class="dilemma-title">Oversikten over boligbehovet er utdatert</p><p>En analyse eldre enn fire år oppfyller ikke planstrategikravet og gir ikke et forsvarlig grunnlag for prioriteringer – dette er i strid med loven.</p></div>
-  <div class="dilemma"><p class="dilemma-title">Samarbeid mellom boligtjeneste og NAV fungerer dårlig</p><p>§ 5 første ledd er klar: kommunedirektøren har plikt til å sørge for samordning. Det er ikke tilstrekkelig at de to enhetene «forsøker å samarbeide».</p></div>
-
+  <div class="dilemma"><p class="dilemma-title">Boligsosiale mål er for vage</p><p>«Kommunen skal legge til rette for gode boforhold for alle» er ikke godt nok. Mål som «redusere antall bostedsløse med 50 prosent innen 2027» gir faktisk styring.</p></div>
+  <div class="dilemma"><p class="dilemma-title">Oversikten over boligbehovet er utdatert</p><p>En analyse eldre enn fire år oppfyller ikke planstrategikravet og gir ikke et forsvarlig grunnlag – dette er i strid med loven.</p></div>
   <h2>Sjekkliste</h2>
   <ul class="checklist">
     <li>Er boligsosiale mål og strategier inntatt i gjeldende kommuneplan?</li>
     <li>Er det utarbeidet en oppdatert oversikt over boligbehovet?</li>
     <li>Inngår boligbehovsanalysen som grunnlag for kommunens planstrategi?</li>
     <li>Har kommunen etablerte samarbeidsarenaer på tvers av boligtjeneste, NAV og helse?</li>
-    <li>Er det inngått samarbeidsavtaler med NAV, spesialisthelsetjenesten og kriminalomsorgen?</li>
     <li>Er ansvaret for samordning plassert i kommunens lederstruktur?</li>
   </ul>
-
-  <div class="resources">
-    <h4>Videre ressurser</h4>
-    <ul>
-      <li><a href="https://www.husbanken.no/boligsosial-monitor/">Boligsosial monitor – husbanken.no</a></li>
-      <li><a href="https://statistikk.husbanken.no/">statistikk.husbanken.no</a></li>
-      <li><a href="https://www.husbanken.no/eksempler/">Eksempler fra kommuner</a></li>
-      <li><a href="https://www.husbanken.no/kobo/">Kobo</a></li>
-    </ul>
-  </div>
-
-  <div class="box box-cite">
-    <p>Boligsosialloven § 5 pålegger kommunen å fastsette overordnede mål og strategier for det boligsosiale arbeidet i kommuneplanen, å ha en oppdatert oversikt over behovet for ordinære og tilpassede boliger, og å sørge for tverrsektoriell samordning og samarbeid med andre offentlige aktører. Plikten forutsetter politisk forankring, administrativ samordning og faglig kapasitet til å kartlegge og planlegge arbeidet systematisk.</p>
-  </div>
+  <div class="box box-cite"><p>Boligsosialloven § 5 pålegger kommunen å fastsette overordnede mål og strategier for det boligsosiale arbeidet i kommuneplanen, å ha en oppdatert oversikt over behovet for ordinære og tilpassede boliger, og å sørge for tverrsektoriell samordning og samarbeid med andre offentlige aktører. Plikten forutsetter politisk forankring, administrativ samordning og faglig kapasitet.</p></div>
 </section>
+</div>
 
-<!-- ==================== KAPITTEL 5 ==================== -->
-<section class="section" id="kap5">
+<!-- KAP 5 -->
+<div id="sec-kap5" class="sec-block">
+<section class="section">
   <span class="section-tag tag-veileder">Kapittel 5 · § 6</span>
   <h1>Individuelt tilpasset bistand</h1>
   <p class="section-subtitle">Boligsosialloven § 6</p>
-
   <h2>Lovkravet</h2>
   <blockquote>
     <p>Kommunen skal gi individuelt tilpasset bistand til vanskeligstilte på boligmarkedet.</p>
@@ -475,54 +568,39 @@
     <p>Bistanden kan blant annet gå ut på å gi råd og veiledning om økonomi, bomestring, statlige og kommunale tjenestetilbud eller andre forhold av betydning for bosituasjonen. Kommunen kan også gi praktisk bistand, slik som hjelp til å søke støtte-, låne- og tilskuddsordninger eller kommunalt disponert bolig, bistand i en konkret kjøps- eller leieprosess eller bistand til å forebygge utkastelse.</p>
     <p>Plikten til å gi individuelt tilpasset bistand omfatter også bistand til å skaffe boliger med særlig tilpasning og med hjelpe- og vernetiltak for dem som trenger det på grunn av alder, funksjonsnedsettelser eller av andre årsaker.</p>
   </blockquote>
-
-  <p>§ 6 er lovens kjerne: plikten til faktisk å hjelpe den som er vanskeligstilt. Bestemmelsen er en <em>aktivitetsplikt</em>.</p>
-
-  <h3>Kommunens skjønn</h3>
-  <p>Kommunen vurderer selv hvilken bistand som gis. En vanskeligstilt person har ikke rettskrav på en bestemt type bistand – for eksempel kommunal bolig – men har krav på en <em>individuelt tilpasset</em> respons. Kommunen kan ikke gi alle den samme standardpakken.</p>
-
+  <p>§ 6 er lovens kjerne: plikten til faktisk å hjelpe den som er vanskeligstilt. Dette er en <em>aktivitetsplikt</em>.</p>
   <h3>Bistandens former</h3>
   <p><strong>Råd og veiledning:</strong> Om økonomi, bomestring, statlige og kommunale tjenestetilbud og andre forhold av betydning for bosituasjonen.</p>
   <p><strong>Praktisk bistand:</strong> Hjelp til å søke startlån, tilskudd, bostøtte eller kommunal bolig; bistand i kjøps- eller leieprosess; bistand til å forebygge utkastelse.</p>
-
   <h2>Hva dette betyr for kommunen</h2>
-  <p><strong>Aktivitetsplikten er absolutt:</strong> Et vedtak om at kommunen ikke har kapasitet eller egnede boliger, fritar ikke fra bistandsplikten.</p>
-  <p><strong>Kommunal bolig er ett virkemiddel, ikke det eneste:</strong> Bistandsplikten kan oppfylles gjennom råd og veiledning, hjelp til å kjøpe eller leie privat, startlån, tilskudd, utkastelsesforebygging eller andre tiltak.</p>
-  <p><strong>Gjenopptakelse av bistand:</strong> Plikten til å bistå med å <em>beholde</em> bolig betyr at bistanden ikke nødvendigvis avsluttes etter at personen er etablert i bolig.</p>
-
+  <p><strong>Aktivitetsplikten er absolutt:</strong> Et vedtak om at kommunen ikke har kapasitet eller egnede boliger, fritar ikke fra bistandsplikten. <strong>Kommunal bolig er ett virkemiddel, ikke det eneste.</strong> Bistandsplikten kan oppfylles gjennom råd, hjelp til privat leie eller kjøp, startlån, tilskudd eller utkastelsesforebygging. <strong>Plikten gjelder også å beholde bolig.</strong></p>
   <h2>Husbankens anbefalinger</h2>
   <div class="box box-recommendation">
-    <p><strong>Housing First-tilnærming:</strong> Husbanken anbefaler at kommunen legger Housing First-prinsippene til grunn for bistanden til de mest utsatte: bolig som plattform for stabilitet og bedring, ikke som belønning for atferd.</p>
-    <p><strong>Utkastelsesforebygging:</strong> Husbanken anbefaler at kommunen etablerer et system for tidlig fanging av betalingsproblemer og utkastelsesrisiko. Det koster kommunen mer å hjelpe en ny bostedsløs enn å forebygge en utkastelse.</p>
-    <p><strong>Startlån, tilskudd og bostøtte som primærvirkemidler:</strong> Husbanken anbefaler at kommunen systematisk vurderer om startlån og tilskudd kan brukes til å hjelpe vanskeligstilte inn i eid bolig.</p>
+    <p><strong>Housing First:</strong> Bolig som plattform for stabilitet og bedring – ikke som belønning for atferd.<br><br>
+    <strong>Utkastelsesforebygging:</strong> Et system for tidlig fanging av betalingsproblemer koster kommunen langt mindre enn å håndtere ny bostedsløshet.<br><br>
+    <strong>Startlån og tilskudd som primærvirkemidler:</strong> Vurder systematisk om vanskeligstilte kan hjelpes inn i eid bolig.</p>
   </div>
-
   <h2>Eksempler og typiske dilemmaer</h2>
-  <div class="dilemma"><p class="dilemma-title">Kommunen har ikke kommunale boliger tilgjengelig</p><p>Kan kommunen avslå bistand? Nei – bistanden behøver ikke være kommunal bolig. Vedtaket bør vise hvilke alternativer som er vurdert: startlån, privat leiebolig med kommunal leieavtale, midlertidig botilbud mens permanent løsning finnes.</p></div>
-  <div class="dilemma"><p class="dilemma-title">Personen ønsker ikke kommunens bistand</p><p>Kommunen vurderer selv hvilken bistand som gis, men skal ta hensyn til personens ønsker (§ 7 tredje ledd). Begrunnelsen for avvik fra personens ønsker bør fremgå av vedtaket.</p></div>
-  <div class="dilemma"><p class="dilemma-title">Vedvarende bostedsløshet</p><p>Bistandsplikten er ikke tidsbegrenset. Kommunen bør vurdere om bistanden er tilstrekkelig individuelt tilpasset, og om koordinering med helse, rus og psykiatri er tilstrekkelig.</p></div>
-
+  <div class="dilemma"><p class="dilemma-title">Kommunen har ikke kommunale boliger tilgjengelig</p><p>Bistandsplikten gjelder likevel. Vedtaket bør vise hvilke alternativer som er vurdert: startlån, privat leie med kommunal leieavtale, midlertidig botilbud mens permanent løsning finnes.</p></div>
+  <div class="dilemma"><p class="dilemma-title">Vedvarende bostedsløshet</p><p>Bistandsplikten er ikke tidsbegrenset. Vurder om bistanden er tilstrekkelig individuelt tilpasset og om koordinering med helse, rus og psykiatri er tilstrekkelig.</p></div>
   <h2>Sjekkliste</h2>
   <ul class="checklist">
     <li>Tilbyr kommunen et spekter av bistandsformer – ikke bare kommunal bolig?</li>
-    <li>Har kommunen rutiner for systematisk å vurdere startlån og tilskudd?</li>
-    <li>Er det etablert rutiner for oppfølging av vanskeligstilte etter bosetting?</li>
+    <li>Har kommunen rutiner for å systematisk vurdere startlån og tilskudd?</li>
+    <li>Er det rutiner for oppfølging av vanskeligstilte etter bosetting?</li>
     <li>Har kommunen system for tidlig fanging av utkastelsesrisiko?</li>
-    <li>Er bistandsforløpet dokumentert for internkontroll?</li>
     <li>Er brukermedvirkning dokumentert i alle saker?</li>
   </ul>
-
-  <div class="box box-cite">
-    <p>Boligsosialloven § 6 pålegger kommunen en ubetinget aktivitetsplikt: kommunen skal gi individuelt tilpasset bistand til alle som er vanskeligstilte på boligmarkedet. Bistanden kan ta mange former – råd og veiledning, praktisk bistand, hjelp til å benytte finansieringsordninger eller bistand i en konkret boligprosess. Kommunen bestemmer selv bistandsformen innenfor det handlingsrommet loven gir, men bistanden skal alltid være tilpasset den enkeltes behov og inkludere brukermedvirkning. Kommunal bolig er ett av flere virkemidler.</p>
-  </div>
+  <div class="box box-cite"><p>Boligsosialloven § 6 pålegger kommunen en ubetinget aktivitetsplikt: kommunen skal gi individuelt tilpasset bistand til alle som er vanskeligstilte på boligmarkedet. Bistanden kan ta mange former. Kommunen bestemmer selv bistandsformen innenfor det handlingsrommet loven gir, men bistanden skal alltid være tilpasset den enkeltes behov og inkludere brukermedvirkning. Kommunal bolig er ett av flere virkemidler.</p></div>
 </section>
+</div>
 
-<!-- ==================== KAPITTEL 6 ==================== -->
-<section class="section" id="kap6">
+<!-- KAP 6 -->
+<div id="sec-kap6" class="sec-block">
+<section class="section">
   <span class="section-tag tag-veileder">Kapittel 6 · § 7</span>
   <h1>Saksbehandling og klage</h1>
   <p class="section-subtitle">Boligsosialloven § 7</p>
-
   <h2>Lovkravet</h2>
   <blockquote>
     <p>Når noen ved søknad eller på annen måte ber om bistand fra kommunen, skal kommunen ta stilling til om personen er vanskeligstilt på boligmarkedet. En avgjørelse om å gi eller avslå bistand, er et enkeltvedtak.</p>
@@ -530,246 +608,155 @@
     <p>Kommunen skal så langt som mulig samarbeide med den som skal motta bistanden, og ta hensyn til dennes ønsker.</p>
     <p>Ved klage over enkeltvedtak er statsforvalteren klageinstans.</p>
   </blockquote>
-
   <h3>Henvendelsens form</h3>
-  <p>Kommunen plikter å ta stilling uansett <em>hvordan</em> henvendelsen kommer inn – muntlig, via NAV, helse- og omsorgstjenesten, barnevernet, en pårørende. Kommunen kan ikke avvise med at «vi har ikke mottatt en skriftlig søknad».</p>
-
+  <p>Kommunen plikter å ta stilling uansett <em>hvordan</em> henvendelsen kommer inn – muntlig, via NAV, helse, barnevern eller pårørende. Kommunen kan ikke avvise med at «vi har ikke mottatt en skriftlig søknad».</p>
   <h3>Enkeltvedtak</h3>
-  <p>En avgjørelse om å gi <em>eller</em> avslå bistand er et enkeltvedtak. Det medfører: begrunnelsesplikt, underretning om vedtak og klageadgang, krav til forsvarlig saksbehandlingstid og dokumentasjonsplikt.</p>
-  <p>Et ubesvart boligsøknad er i strid med loven. Gatejuristen-rapporten (2025) viser at om lag 40 prosent av henvendelsene ikke ble besvart – dette er en systemfeil kommunen har rettslig plikt til å rette.</p>
-
+  <p>Gjelder for innvilgelse <em>og</em> avslag. Medfører: begrunnelsesplikt, underretning om klageadgang, krav til forsvarlig saksbehandlingstid og dokumentasjonsplikt. Et ubesvart boligsøknad er i strid med loven.</p>
   <h3>Innholdet i vedtaket</h3>
-  <p>Fatter kommunen vedtak om bistand, skal <em>hovedinnholdet</em> angis – hva slags bistand som gis, ikke nødvendigvis alle detaljer. Det må fremgå hva kommunen forplikter seg til å gjøre.</p>
-
+  <p>Hovedinnholdet i bistanden må angis – hva kommunen forplikter seg til å gjøre, ikke bare at «bistand er innvilget».</p>
   <h3>Brukermedvirkning</h3>
-  <p>Manglende brukermedvirkning er en saksbehandlingsfeil som kan medføre at vedtaket er ugyldig. Kommunen skal spørre hva den vanskeligstilte ønsker, dokumentere ønskene, og begrunne eventuelle avvik.</p>
-
+  <p>Manglende brukermedvirkning er en saksbehandlingsfeil som kan gjøre vedtaket ugyldig. Den vanskeligstiltes ønsker skal dokumenteres; avvik fra ønskene skal begrunnes.</p>
   <h3>Klage</h3>
-  <p>Statsforvalteren er klageinstans. Klagefrist er tre uker fra vedtaket er mottatt. Det kan <em>ikke</em> klages til statsforvalteren over avslag på søknad om kommunal bolig som sådan.</p>
-
+  <p>Statsforvalteren er klageinstans. Klagefrist: tre uker fra vedtaket er mottatt. Det kan <em>ikke</em> klages over avslag på kommunal bolig som sådan.</p>
   <h2>Hva dette betyr for kommunen</h2>
-  <p><strong>Alle henvendelser må besvares:</strong> Kommunen bør ha system for å registrere og spore alle henvendelser.</p>
-  <p><strong>Klager er et signal:</strong> Mange klager kan indikere manglende kapasitet, svak kompetanse eller et for smalt bistandstilbud. Klagestatistikk bør inngå i internkontrollen.</p>
-
+  <p>Alle henvendelser må besvares. Mange klager til statsforvalteren er et signal – analyser årsaken som del av internkontrollen.</p>
   <h2>Husbankens anbefalinger</h2>
-  <div class="box box-recommendation">
-    <p>Husbanken anbefaler vedtaksmaler for de vanligste bistandstypene som sikrer at § 7 annet ledd og brukermedvirkningskravet er dokumentert. Gjennomsnittlig saksbehandlingstid bør gjennomgås jevnlig – fire måneder er ikke forenlig med kravet til forsvarlig saksbehandling. Muntlige henvendelser bør journalføres.</p>
-  </div>
-
-  <h2>Eksempler og typiske dilemmaer</h2>
-  <div class="dilemma"><p class="dilemma-title">Kommunen svarer ikke</p><p>Den som søker kan klage til statsforvalteren over urimelig lang saksbehandlingstid, jf. forvaltningsloven § 11a (krav om foreløpig svar innen én måned).</p></div>
-  <div class="dilemma"><p class="dilemma-title">Vedtaket sier bare «bistand er innvilget»</p><p>§ 7 andre ledd krever at <em>hovedinnholdet</em> i bistanden angis. Et vedtak uten innholdsangivelse oppfyller ikke lovens krav.</p></div>
-  <div class="dilemma"><p class="dilemma-title">Pårørende tar kontakt på vegne av person med kognitiv svikt</p><p>§ 7 første ledd setter ingen krav til hvem som fremmer henvendelsen. Kommunen bør imidlertid sikre at eventuell verge eller fullmektig er involvert.</p></div>
-
+  <div class="box box-recommendation"><p>Husbanken anbefaler vedtaksmaler som sikrer at bistandens hovedinnhold og brukermedvirkning er dokumentert. Gjennomsnittlig saksbehandlingstid bør gjennomgås jevnlig – fire måneder er ikke forsvarlig. Muntlige henvendelser bør journalføres.</p></div>
   <h2>Sjekkliste</h2>
   <ul class="checklist">
-    <li>Har kommunen system for å registrere og spore alle henvendelser?</li>
+    <li>Har kommunen system for å registrere alle henvendelser uavhengig av inngangskanal?</li>
     <li>Fatter kommunen enkeltvedtak på alle henvendelser – inkludert avslag?</li>
     <li>Inneholder vedtakene individuell begrunnelse og angivelse av bistandens hovedinnhold?</li>
     <li>Er brukermedvirkning dokumentert i saksmappen?</li>
     <li>Opplyser alle vedtak om klagerett og klageinstans?</li>
-    <li>Overholder kommunen kravet om forsvarlig saksbehandlingstid?</li>
-    <li>Inngår klagestatistikk fra statsforvalteren i kommunens internkontroll?</li>
+    <li>Inngår klagestatistikk fra statsforvalteren i internkontrollen?</li>
   </ul>
-
-  <div class="box box-cite">
-    <p>Boligsosialloven § 7 krever at kommunen fatter enkeltvedtak i alle saker der noen ber om boligsosial bistand – enten vedtaket er innvilgelse eller avslag. Vedtaket skal angi bistandens hovedinnhold, og saksbehandlingen skal sikre reell brukermedvirkning. Statsforvalteren er klageinstans. Manglende svar på henvendelser om bistand er i strid med loven.</p>
-  </div>
+  <div class="box box-cite"><p>Boligsosialloven § 7 krever at kommunen fatter enkeltvedtak i alle saker der noen ber om boligsosial bistand – enten vedtaket er innvilgelse eller avslag. Vedtaket skal angi bistandens hovedinnhold, og saksbehandlingen skal sikre reell brukermedvirkning. Statsforvalteren er klageinstans. Manglende svar på henvendelser om bistand er i strid med loven.</p></div>
   <div class="box box-warning"><p>Håndteringen av henvendelser fra personer uten samtykkekompetanse og grensesnittet mot vergemålsloven bør kvalitetssikres juridisk.</p></div>
 </section>
+</div>
 
-<!-- ==================== KAPITTEL 7 ==================== -->
-<section class="section" id="kap7">
+<!-- KAP 7 -->
+<div id="sec-kap7" class="sec-block">
+<section class="section">
   <span class="section-tag tag-veileder">Kapittel 7 · §§ 8–9</span>
   <h1>Behandling av personopplysninger</h1>
   <p class="section-subtitle">Boligsosialloven §§ 8–9</p>
-
   <h2>Lovkravet</h2>
   <h3>§ 8 Behandling av personopplysninger</h3>
-  <blockquote>
-    <p>Kommunen og statsforvalteren kan behandle personopplysninger, også personopplysninger som nevnt i personvernforordningen artikkel 9 og 10, når dette er nødvendig for å utføre oppgaver etter loven her.</p>
-    <p>Innsamlede opplysninger kan, når det er nødvendig, benyttes i forbindelse med utarbeidelse av statistikk og analyser, men kun dersom formålet ikke kan oppnås ved bruk av anonymiserte opplysninger.</p>
-  </blockquote>
-
+  <blockquote><p>Kommunen og statsforvalteren kan behandle personopplysninger, også personopplysninger som nevnt i personvernforordningen artikkel 9 og 10, når dette er nødvendig for å utføre oppgaver etter loven her. Innsamlede opplysninger kan, når det er nødvendig, benyttes i forbindelse med utarbeidelse av statistikk og analyser, men kun dersom formålet ikke kan oppnås ved bruk av anonymiserte opplysninger.</p></blockquote>
   <h3>§ 9 Innhenting av opplysninger</h3>
-  <blockquote>
-    <p>Opplysninger skal så langt som mulig innhentes i samarbeid med den som ber om bistand eller slik at han eller hun har kjennskap til innhentingen.</p>
-    <p>Når det er nødvendig for å utføre oppgaver etter loven her, kan kommunen kreve opplysninger fra andre offentlige organer. Dersom de etterspurte opplysningene er underlagt taushetsplikt, skal spørsmålet om de kan gis uten hinder av taushetsplikten, avgjøres etter de taushetspliktbestemmelsene som gjelder for avgiverorganet.</p>
-    <p>Kommunen kan, uten hinder av taushetsplikt, innhente opplysninger fra Folkeregisteret og skattemyndighetene som er nødvendige for å utføre oppgaver etter loven her.</p>
-  </blockquote>
-
-  <h3>§ 8 – Behandlingshjemmel</h3>
-  <p>§ 8 er behandlingsgrunnlaget for kommunens og statsforvalterens behandling av personopplysninger. <strong>«Nødvendig»-vilkåret:</strong> Unødvendige opplysninger skal ikke samles inn eller lagres. Personopplysninger kan brukes til statistikk og analyser – men bare når anonymiserte data ikke er tilstrekkelig.</p>
-
-  <h3>§ 9 – Brukermedvirkning og opplysningsplikt</h3>
-  <p>Opplysninger skal innhentes i samarbeid med den det gjelder, eller slik at vedkommende har kjennskap til innhentingen. Kommunen kan <em>kreve</em> opplysninger fra andre offentlige organer. Private og organisasjoner som utfører offentlige oppgaver er likestilt med offentlige organer. Kommunen kan uten hinder av taushetsplikt innhente opplysninger fra Folkeregisteret og skattemyndighetene – nærmere regulert i forskrift FOR-2023-08-17-1330.</p>
-
+  <blockquote><p>Opplysninger skal så langt som mulig innhentes i samarbeid med den som ber om bistand eller slik at han eller hun har kjennskap til innhentingen. Når det er nødvendig for å utføre oppgaver etter loven her, kan kommunen kreve opplysninger fra andre offentlige organer. Kommunen kan, uten hinder av taushetsplikt, innhente opplysninger fra Folkeregisteret og skattemyndighetene som er nødvendige for å utføre oppgaver etter loven her.</p></blockquote>
+  <p>§ 8 er behandlingsgrunnlaget – kommunen trenger ikke lenger begrunne behandlingen av sensitive personopplysninger i samtykke. <strong>«Nødvendig»-vilkåret</strong> gjelder alltid: unødvendige opplysninger skal ikke samles inn. Opplysninger fra Folkeregisteret og skattemyndighetene er nærmere regulert i Forskrift FOR-2023-08-17-1330.</p>
   <h2>Hva dette betyr for kommunen</h2>
-  <p><strong>Behandlingsgrunnlag er på plass:</strong> § 8 er tilstrekkelig og spesifikk hjemmel for behandling av sensitive personopplysninger i boligsosiale saker.</p>
-  <p><strong>Nødvendighetsprinsippet gjelder:</strong> «Vi kan trenge det en gang» er ikke tilstrekkelig begrunnelse.</p>
-  <p><strong>Brukerne skal informeres:</strong> Kommunen har informasjonsplikt etter GDPR artikkel 13 og 14.</p>
-
+  <p><strong>Behandlingsgrunnlag er på plass</strong> via § 8. <strong>Brukerne skal informeres</strong> etter GDPR artikkel 13 og 14. <strong>Tilgangsstyring</strong> bør sikre at bare de med tjenestelig behov har tilgang til sensitive opplysninger.</p>
   <h2>Husbankens anbefalinger</h2>
-  <div class="box box-recommendation">
-    <p>Husbanken anbefaler at kommunen sikrer at behandling av personopplysninger i boligsosiale saker er inkludert i kommunens GDPR-rutiner og er kjent for personvernombudet. Husbanken anbefaler bruk av Kobo som kommunalt fagsystem – det er bygget med informasjonssikkerhet og personvern som premisser.</p>
-  </div>
-
+  <div class="box box-recommendation"><p>Husbanken anbefaler at behandling av personopplysninger i boligsosiale saker er inkludert i kommunens GDPR-rutiner og kjent for personvernombudet. Bruk Kobo som fagsystem – det er bygget med informasjonssikkerhet og personvern som premisser.</p></div>
   <h2>Sjekkliste</h2>
   <ul class="checklist">
-    <li>Er kommunens behandling av personopplysninger i boligsosiale saker registrert i protokoll over behandlingsaktiviteter?</li>
-    <li>Er personvernombudet kjent med behandlingen?</li>
-    <li>Har kommunen tilgangsstyring som sikrer at bare de med tjenestelig behov har tilgang?</li>
+    <li>Er behandlingen registrert i protokoll over behandlingsaktiviteter?</li>
+    <li>Er personvernombudet kjent med behandlingen av boligsosiale personopplysninger?</li>
+    <li>Har kommunen tilgangsstyring som sikrer riktig tilgang?</li>
     <li>Gis det informasjon til brukere om personvern ved mottak av henvendelse?</li>
     <li>Har kommunen rutiner for sletting i henhold til GDPR?</li>
   </ul>
-
-  <div class="box box-cite">
-    <p>Boligsosialloven §§ 8 og 9 gir kommunen hjemmel til å behandle de personopplysningene – inkludert sensitive opplysninger om helse og vandel – som er nødvendige for å gi individuelt tilpasset bistand etter loven. Kommunen kan innhente opplysninger fra andre offentlige organer, Folkeregisteret og skattemyndighetene. Behandlingen er begrenset til det som er nødvendig for formålet og er underlagt personvernforordningens krav til informasjonssikkerhet og sletting.</p>
-  </div>
-  <div class="box box-warning"><p>Kapittelet om personopplysninger bør ved publisering kvalitetssikres av kommunens personvernombud og juridisk kompetanse, da GDPR-tolkning og tilgangsstyring er et område i løpende utvikling.</p></div>
+  <div class="box box-cite"><p>Boligsosialloven §§ 8 og 9 gir kommunen hjemmel til å behandle de personopplysningene – inkludert sensitive opplysninger om helse og vandel – som er nødvendige for å gi individuelt tilpasset bistand etter loven. Kommunen kan innhente opplysninger fra andre offentlige organer, Folkeregisteret og skattemyndighetene. Behandlingen er begrenset til det som er nødvendig for formålet.</p></div>
+  <div class="box box-warning"><p>Kapittelet om personopplysninger bør ved publisering kvalitetssikres av kommunens personvernombud og juridisk kompetanse.</p></div>
 </section>
+</div>
 
-<!-- ==================== PAKKE 1 ==================== -->
-<section class="section" id="pakke1">
+<!-- PAKKE 1 -->
+<div id="sec-pakke1" class="sec-block">
+<section class="section">
   <span class="section-tag tag-pakke">Informasjonspakke 1</span>
   <h1>Ny saksbehandler med boligsosiale oppgaver</h1>
   <div class="box box-scenario"><p>Du er ny i en stilling med boligsosiale oppgaver i kommunen – for eksempel i boligkontoret, NAV eller helse- og omsorgstjenesten.</p></div>
-
   <h2>Det viktigste du trenger å vite</h2>
-  <p>Kommunen har lovplikt til å hjelpe vanskeligstilte på boligmarkedet. Plikten følger av <strong>boligsosialloven</strong> (i kraft 1. juli 2023). Tre ting du alltid skal huske:</p>
+  <p>Tre ting du alltid skal huske:</p>
   <ol>
     <li><strong>Alle henvendelser om boligsosial bistand skal besvares med enkeltvedtak</strong> – også avslag.</li>
     <li><strong>Bistanden skal alltid være individuelt tilpasset</strong> – du kan ikke gi alle den samme løsningen.</li>
     <li><strong>Du skal samarbeide med den som søker hjelp</strong> – brukermedvirkning er et lovkrav.</li>
   </ol>
-
-  <h2>Hvem har krav på hjelp?</h2>
-  <p>En person er <strong>vanskeligstilt på boligmarkedet</strong> (§ 4) hvis:</p>
-  <ul>
-    <li>vedkommende <em>ikke kan ivareta sine interesser</em> på boligmarkedet, <strong>og</strong></li>
-    <li>bistanden skal bidra til å <em>skaffe eller beholde en egnet bolig</em></li>
-  </ul>
-  <p>Årsaken til vanskeligstillingen er uten betydning. Du kan ikke avvise noen med at situasjonen er selvforskyldt. Typiske grupper: bostedsløse, de i fare for utkastelse, barnefamilier med dårlig økonomi, personer med rusproblemer eller psykisk sykdom, flyktninger, løslatte fra fengsel, personer med funksjonsnedsettelse.</p>
-
-  <h2>Hva slags bistand skal du gi?</h2>
-  <p><strong>Råd og veiledning om:</strong> økonomi, budsjett og gjeld; bomestring; statlige og kommunale virkemidler (startlån, bostøtte, tilskudd).</p>
-  <p><strong>Praktisk bistand:</strong> Hjelp til å søke kommunal bolig, startlån, tilskudd eller bostøtte; hjelp i en konkret leie- eller kjøpsprosess; bistand til å forebygge utkastelse.</p>
-  <p>Kommunal bolig er <em>ett av flere</em> virkemidler – ikke det eneste.</p>
-
-  <h2>Saksbehandling – steg for steg</h2>
+  <h2>Hvem har krav på hjelp? (§ 4)</h2>
+  <p>En person er vanskeligstilt på boligmarkedet hvis vedkommende <em>ikke kan ivareta sine interesser</em> på boligmarkedet <strong>og</strong> bistanden skal bidra til å <em>skaffe eller beholde en egnet bolig</em>. Årsaken er uten betydning. Typiske grupper: bostedsløse, de i fare for utkastelse, barnefamilier med dårlig økonomi, personer med rusproblemer eller psykisk sykdom, flyktninger, løslatte fra fengsel, personer med funksjonsnedsettelse.</p>
+  <h2>Hva slags bistand skal du gi? (§ 6)</h2>
+  <p><strong>Råd og veiledning:</strong> om økonomi, bomestring, statlige og kommunale virkemidler (startlån, bostøtte, tilskudd).</p>
+  <p><strong>Praktisk bistand:</strong> Hjelp til å søke kommunal bolig, startlån, tilskudd eller bostøtte; hjelp i en konkret leie- eller kjøpsprosess; bistand til å forebygge utkastelse. Kommunal bolig er ett av flere virkemidler.</p>
+  <h2>Saksbehandling steg for steg</h2>
   <ol>
     <li><strong>Ta imot henvendelsen</strong> – i hvilken som helst form. Registrer alltid.</li>
     <li><strong>Kartlegg situasjonen</strong> – økonomi, boligbehov, helseforhold, familiesituasjon, ønsker. Dokumenter.</li>
-    <li><strong>Vurder om personen er vanskeligstilt</strong> – individuell vurdering etter § 4. Begge vilkår må være oppfylt.</li>
+    <li><strong>Vurder om personen er vanskeligstilt</strong> – individuell vurdering etter § 4.</li>
     <li><strong>Fatt vedtak</strong> – innvilgelse: angi hva bistanden går ut på; avslag: gi individuell begrunnelse; alltid: informer om klagerett til statsforvalteren.</li>
-    <li><strong>Følg opp</strong> – sjekk om personen trenger videre hjelp.</li>
+    <li><strong>Følg opp</strong> – bistanden kan strekke seg over tid.</li>
   </ol>
-
-  <h2>Hvem samarbeider du med?</h2>
+  <h2>Samarbeidspartnere</h2>
   <table>
     <tr><th>Aktør</th><th>Rolle</th></tr>
-    <tr><td>NAV</td><td>Medvirkningsansvar etter sosialtjenesteloven § 15, akutthjelp ved bostedsløshet (sosialtjenesteloven § 27)</td></tr>
-    <tr><td>Helse- og omsorgstjeneste</td><td>Behov for tilpasset bolig ved sykdom, alder, funksjonsnedsettelse</td></tr>
+    <tr><td>NAV</td><td>Medvirkningsansvar (sosialtjenesteloven § 15), akutthjelp ved bostedsløshet (§ 27)</td></tr>
+    <tr><td>Helse- og omsorgstjeneste</td><td>Tilpasset bolig ved sykdom, alder, funksjonsnedsettelse</td></tr>
     <tr><td>Barnevernet</td><td>Barnefamilier, barnets beste</td></tr>
     <tr><td>Statsforvalteren</td><td>Klageinstans, veiledning</td></tr>
     <tr><td>Husbanken</td><td>Startlån, tilskudd, kompetansestøtte</td></tr>
   </table>
-
-  <div class="resources">
-    <h4>Nyttige ressurser</h4>
-    <ul>
-      <li><a href="https://www.husbanken.no/kobo/">Kobo – saksbehandling og maler</a></li>
-      <li><a href="https://lovdata.no/lov/2022-12-20-121">Lovtekst – lovdata.no</a></li>
-      <li><a href="https://www.husbanken.no/kommune/startlaan/">Startlån og tilskudd</a></li>
-      <li><a href="https://www.husbanken.no/om-husbanken/kontakt/vare-kontor/">Husbankens regionkontor</a></li>
-    </ul>
-  </div>
+  <div class="resources"><h4>Nyttige ressurser</h4><ul>
+    <li><a href="https://www.husbanken.no/kobo/">Kobo – saksbehandling og maler</a></li>
+    <li><a href="https://lovdata.no/lov/2022-12-20-121">Lovtekst – lovdata.no</a></li>
+    <li><a href="https://www.husbanken.no/kommune/startlaan/">Startlån og tilskudd</a></li>
+    <li><a href="https://www.husbanken.no/om-husbanken/kontakt/vare-kontor/">Husbankens regionkontor</a></li>
+  </ul></div>
 </section>
+</div>
 
-<!-- ==================== PAKKE 2 ==================== -->
-<section class="section" id="pakke2">
+<!-- PAKKE 2 -->
+<div id="sec-pakke2" class="sec-block">
+<section class="section">
   <span class="section-tag tag-pakke">Informasjonspakke 2</span>
   <h1>Ny leder med boligsosial portefølje</h1>
   <div class="box box-scenario"><p>Du er ny som kommunedirektør, sektorleder eller boligkontorsjef og overtar ansvar for kommunens boligsosiale arbeid.</p></div>
-
   <h2>Ditt juridiske ansvar</h2>
-  <p>Kommunen har tre lovpålagte plikter etter boligsosialloven:</p>
-  <p><strong>1. Systemansvar (§ 5):</strong> Oppdatert oversikt over boligbehovet; overordnede mål og strategier i kommuneplanen; tverrsektoriell samordning og samarbeid med NAV, helse, barnevern og andre.</p>
+  <p><strong>1. Systemansvar (§ 5):</strong> Oppdatert oversikt over boligbehovet; overordnede mål og strategier i kommuneplanen; tverrsektoriell samordning og samarbeid.</p>
   <p><strong>2. Individansvar (§ 6):</strong> Individuelt tilpasset bistand til alle vanskeligstilte. Kommunal bolig er ett av flere virkemidler.</p>
   <p><strong>3. Saksbehandlingsansvar (§ 7):</strong> Alle henvendelser skal besvares med enkeltvedtak. Statsforvalteren er klageinstans.</p>
-  <p><strong>Kommunen kan ikke</strong> avvise bistand med at «vi har ikke kapasitet» eller «vi har ikke egnede boliger». Bistandsplikten er absolutt.</p>
-
+  <p><strong>Kommunen kan ikke</strong> avvise bistand med at «vi har ikke kapasitet» eller «vi har ikke egnede boliger».</p>
   <h2>Hva du bør sjekke</h2>
-  <p><strong>Organisering:</strong></p>
   <ul class="checklist">
     <li>Er ansvaret for det boligsosiale arbeidet tydelig plassert i kommunens lederstruktur?</li>
     <li>Har kommunen tverrsektoriell samordning mellom bolig, NAV og helse?</li>
-    <li>Er det etablerte samarbeidsrutiner med NAV-kontoret?</li>
-  </ul>
-  <p><strong>Plan og politisk forankring:</strong></p>
-  <ul class="checklist">
     <li>Har kommuneplanen boligsosiale mål og strategier?</li>
     <li>Er det utarbeidet en oppdatert oversikt over boligbehovet?</li>
-    <li>Inngår boligbehovsanalysen i planstrategiarbeidet?</li>
-  </ul>
-  <p><strong>Saksbehandling:</strong></p>
-  <ul class="checklist">
     <li>Svarer kommunen med enkeltvedtak på alle henvendelser?</li>
     <li>Er gjennomsnittlig saksbehandlingstid kjent og innenfor forsvarlig ramme?</li>
-    <li>Bruker kommunen Kobo eller tilsvarende fagsystem?</li>
   </ul>
-
   <h2>Internkontroll</h2>
-  <p>Du har ansvar for at kommunen drives i samsvar med loven. En undersøkelse fra Gatejuristen (Kirkens Bymisjon, 2025) viser at ca. 40 % av henvendelser om boligsosial bistand i norske kommuner ikke ble besvart. Dette er i strid med loven og en risiko du som leder har ansvar for å håndtere.</p>
-
-  <h2>Husbankens støtte</h2>
-  <p>Husbanken er nasjonal fagmyndighet og tilbyr: regionkontorer med kompetanse- og rådgivningsstøtte, boligsosial monitor med statistikk og benchmarking, finansieringsordninger (startlån, tilskudd, bostøtte), og kurs og kompetansetilbud for ansatte og ledere.</p>
-
-  <div class="resources">
-    <h4>Nyttige ressurser</h4>
-    <ul>
-      <li><a href="https://www.husbanken.no/boligsosialt-arbeid/boligsosial-lov/">Veileder til boligsosialloven</a></li>
-      <li><a href="https://www.husbanken.no/boligsosial-monitor/">Boligsosial monitor</a></li>
-      <li><a href="https://www.husbanken.no/kommune/opplaring/">Kurs og opplæring</a></li>
-      <li><a href="https://www.husbanken.no/om-husbanken/kontakt/vare-kontor/">Regionkontor og rådgivning</a></li>
-    </ul>
-  </div>
+  <p>En undersøkelse fra Gatejuristen (Kirkens Bymisjon, 2025) viser at ca. 40 % av henvendelser om boligsosial bistand i norske kommuner ikke ble besvart. Dette er i strid med loven og en risiko du som leder har ansvar for å håndtere.</p>
+  <div class="resources"><h4>Husbankens støtte</h4><ul>
+    <li><a href="https://www.husbanken.no/boligsosial-monitor/">Boligsosial monitor – statistikk og benchmarking</a></li>
+    <li><a href="https://www.husbanken.no/kommune/opplaring/">Kurs og opplæring</a></li>
+    <li><a href="https://www.husbanken.no/om-husbanken/kontakt/vare-kontor/">Regionkontor og rådgivning</a></li>
+  </ul></div>
 </section>
+</div>
 
-<!-- ==================== PAKKE 3 ==================== -->
-<section class="section" id="pakke3">
+<!-- PAKKE 3 -->
+<div id="sec-pakke3" class="sec-block">
+<section class="section">
   <span class="section-tag tag-pakke">Informasjonspakke 3</span>
   <h1>Kommuneplanrevisjon og boligsosial planlegging</h1>
   <div class="box box-scenario"><p>Kommunen skal revidere kommuneplanen (samfunnsdelen), og du skal sikre at boligsosiale hensyn er ivaretatt i tråd med boligsosialloven.</p></div>
-
   <h2>Lovkravet – kort</h2>
   <table>
     <tr><th>Plikt</th><th>Hva det betyr</th></tr>
     <tr><td>Overordnede mål i kommuneplanen</td><td>Boligsosiale mål og strategier skal inn i kommuneplanens samfunnsdel</td></tr>
-    <tr><td>Oversikt over boligbehovet</td><td>Oppdatert oversikt over behov for ordinære og tilpassede boliger for vanskeligstilte</td></tr>
-    <tr><td>Boligbehov inn i planstrategien</td><td>Oversikten skal inngå som grunnlag for planstrategien (vedtas hvert 4. år etter valg)</td></tr>
+    <tr><td>Oversikt over boligbehovet</td><td>Oppdatert oversikt over behov for ordinære og tilpassede boliger</td></tr>
+    <tr><td>Boligbehov inn i planstrategien</td><td>Oversikten skal inngå som grunnlag for planstrategien (vedtas hvert 4. år)</td></tr>
   </table>
-
   <h2>Hva skal inn i kommuneplanen?</h2>
-  <p>Målene bør være konkrete nok til å gi retning for prioriteringer.</p>
-  <p><strong>Eksempler på mål som er konkrete nok:</strong></p>
-  <ul>
-    <li>«Innen 2027 skal ingen barnefamilier i kommunen tilbys midlertidig botilbud som eneste løsning»</li>
-    <li>«Kommunen skal redusere antall bostedsløse med 30 prosent innen planperioden»</li>
-    <li>«Alle kommunalt disponerte boliger tildeles vanskeligstilte med størst behov etter skriftlig kartlegging»</li>
-  </ul>
-  <p><strong>Eksempler på mål som er for vage:</strong></p>
-  <ul>
-    <li>«Kommunen skal legge til rette for gode boforhold»</li>
-    <li>«Vi arbeider for at alle skal bo godt»</li>
-  </ul>
-
+  <p><strong>Konkrete nok:</strong> «Innen 2027 skal ingen barnefamilier tilbys midlertidig botilbud som eneste løsning» · «Kommunen skal redusere antall bostedsløse med 30 prosent innen planperioden»</p>
+  <p><strong>For vage:</strong> «Kommunen skal legge til rette for gode boforhold» · «Vi arbeider for at alle skal bo godt»</p>
   <h2>Boligbehovsanalysen</h2>
-  <p>Analysen bør besvare: Hvor mange vanskeligstilte er det, og hvem er de? Hva slags boliger mangler? Er det særlige grupper med udekket behov? Hva er gapet mellom tilbud og behov? Husbanken tilbyr statistikk og verktøy via <a href="https://www.husbanken.no/boligsosial-monitor/">boligsosial monitor</a> og <a href="https://statistikk.husbanken.no/">statistikk.husbanken.no</a>.</p>
-
-  <h2>Fra kommuneplan til boligsosial plan</h2>
-  <p>Husbanken anbefaler at kommunen utarbeider en <strong>boligsosial plan</strong> (handlingsplan) med: konkrete tiltak, ansvarlig enhet og leder per tiltak, tidsfrister og indikatorer, ressursbehov og budsjettkobling, plan for revisjon. En boligsosial plan kan revideres uten å revidere kommuneplanen.</p>
-
+  <p>Analysen bør besvare: Hvor mange vanskeligstilte er det? Hva slags boliger mangler? Er det grupper med udekket behov? Hva er gapet mellom tilbud og behov? Se <a href="https://www.husbanken.no/boligsosial-monitor/">boligsosial monitor</a> og <a href="https://statistikk.husbanken.no/">statistikk.husbanken.no</a>.</p>
   <h2>Kobling til andre planer</h2>
   <table>
     <tr><th>Plan</th><th>Kobling</th></tr>
@@ -778,95 +765,69 @@
     <tr><td>Folkehelseplan</td><td>Sammenhengen mellom bolig, helse og levekår</td></tr>
     <tr><td>Integreringsplan</td><td>Bosetting av flyktninger og boligbehov</td></tr>
   </table>
-
-  <div class="box box-cite">
-    <p>Boligsosialloven § 5 krever at kommunen fastsetter overordnede mål og strategier for det boligsosiale arbeidet i kommuneplanen. Kommunen skal også ha en oppdatert oversikt over boligbehovet for vanskeligstilte, og denne oversikten skal inngå i grunnlaget for planstrategiarbeidet. Manglende boligsosiale mål i kommuneplanen er i strid med loven.</p>
-  </div>
-
-  <h2>Sjekkliste for planprosessen</h2>
+  <div class="box box-cite"><p>Boligsosialloven § 5 krever at kommunen fastsetter overordnede mål og strategier for det boligsosiale arbeidet i kommuneplanen. Kommunen skal også ha en oppdatert oversikt over boligbehovet for vanskeligstilte, og denne oversikten skal inngå i grunnlaget for planstrategiarbeidet. Manglende boligsosiale mål i kommuneplanen er i strid med loven.</p></div>
+  <h2>Sjekkliste</h2>
   <ul class="checklist">
     <li>Er boligbehovsanalysen oppdatert og klar til å inngå i planstrategigrunnlaget?</li>
     <li>Er det utarbeidet forslag til konkrete boligsosiale mål for samfunnsdelen?</li>
     <li>Er boligsosiale hensyn koordinert med arealdelen?</li>
     <li>Er NAV, helse og eventuelt barnevern involvert i planprosessen?</li>
-    <li>Er det utarbeidet eller planlagt en operativ boligsosial plan?</li>
+    <li>Er det planlagt en operativ boligsosial handlingsplan?</li>
   </ul>
 </section>
+</div>
 
-<!-- ==================== PAKKE 4 ==================== -->
-<section class="section" id="pakke4">
+<!-- PAKKE 4 -->
+<div id="sec-pakke4" class="sec-block">
+<section class="section">
   <span class="section-tag tag-pakke">Informasjonspakke 4</span>
   <h1>Forberedelse til statsforvaltertilsyn</h1>
   <div class="box box-scenario"><p>Kommunen har mottatt varsel om tilsyn fra statsforvalteren, eller ønsker å gjøre en egenvurdering av etterlevelse av boligsosialloven.</p></div>
-
   <h2>Statsforvalterens rolle</h2>
-  <p>Statsforvalteren er klageinstans for enkeltvedtak (§ 7 fjerde ledd) og fører tilsyn med kommunenes oppfyllelse av loven. <strong>Husbanken har veilednings- og kompetanseansvar – ikke tilsynsansvar.</strong></p>
-
+  <p>Statsforvalteren er klageinstans (§ 7 fjerde ledd) og fører tilsyn med kommunenes oppfyllelse av loven. <strong>Husbanken har veilednings- og kompetanseansvar – ikke tilsynsansvar.</strong></p>
   <h2>Hva statsforvalteren typisk undersøker</h2>
-  <p><strong>§ 5 – Planlegging og samordning:</strong> Har kommunen boligsosiale mål i kommuneplanen? Har kommunen oppdatert oversikt over boligbehovet? Er det etablert tverrsektoriell samordning?</p>
-  <p><strong>§ 6 – Individuelt tilpasset bistand:</strong> Gir kommunen faktisk bistand? Er bistanden individuelt tilpasset? Brukes et bredere virkemiddelspekter enn bare kommunal bolig?</p>
-  <p><strong>§ 7 – Saksbehandling:</strong> Fatter kommunen enkeltvedtak på alle henvendelser? Er saksbehandlingstiden forsvarlig? Er vedtakene tilstrekkelig begrunnet? Er brukermedvirkning dokumentert? Gir vedtakene informasjon om klagerett?</p>
-
-  <h2>Egenvurdering – nøkkelspørsmål</h2>
-  <p><strong>Planlegging:</strong></p>
+  <p><strong>§ 5 – Planlegging:</strong> Boligsosiale mål i kommuneplanen? Oppdatert boligbehovsanalyse? Tverrsektoriell samordning?</p>
+  <p><strong>§ 6 – Bistand:</strong> Gir kommunen faktisk bistand? Er bistanden individuelt tilpasset? Brukes et bredere virkemiddelspekter?</p>
+  <p><strong>§ 7 – Saksbehandling:</strong> Enkeltvedtak på alle henvendelser? Forsvarlig saksbehandlingstid? Tilstrekkelig begrunnelse? Dokumentert brukermedvirkning? Informasjon om klagerett?</p>
+  <h2>Egenvurdering</h2>
   <ul class="checklist">
     <li>Inneholder kommuneplanen konkrete boligsosiale mål?</li>
     <li>Er boligbehovsanalysen oppdatert (ikke eldre enn 4 år)?</li>
-    <li>Er analysen brukt som grunnlag for siste planstrategi?</li>
-  </ul>
-  <p><strong>Saksbehandling:</strong></p>
-  <ul class="checklist">
     <li>Registrerer kommunen alle henvendelser om boligsosial bistand?</li>
     <li>Fatter kommunen alltid enkeltvedtak – også avslag?</li>
     <li>Inneholder vedtakene individuell begrunnelse og opplysning om klagerett?</li>
+    <li>Er gjennomsnittlig saksbehandlingstid kjent?</li>
+    <li>Er tverrsektoriell koordinering mellom bolig, NAV og helse etablert?</li>
+    <li>Er saksmapper komplett dokumenterte med brukermedvirkning nedtegnet?</li>
   </ul>
-  <p><strong>Organisering og dokumentasjon:</strong></p>
-  <ul class="checklist">
-    <li>Er det tverrsektoriell koordinering mellom bolig, NAV og helse?</li>
-    <li>Er saksmapper komplett dokumenterte?</li>
-    <li>Er brukermedvirkning nedtegnet i sakene?</li>
-  </ul>
-
   <h2>Dersom tilsynet avdekker avvik</h2>
-  <p>Et avvik betyr at kommunen ikke oppfyller lovens krav. Statsforvalteren vil normalt gi pålegg om retting med frist. Prioriter: (1) Manglende enkeltvedtak – alvorlig saksbehandlingsfeil; (2) Manglende svar på henvendelser – lovbrudd som rammer enkeltpersoner direkte; (3) Mangelfull brukermedvirkning – kan medføre ugyldige vedtak; (4) Manglende boligsosiale mål i kommuneplanen – krever politisk behandling.</p>
-
-  <div class="resources">
-    <h4>Nyttige ressurser</h4>
-    <ul>
-      <li><a href="https://www.husbanken.no/boligsosialt-arbeid/boligsosial-lov/">Veileder til boligsosialloven</a></li>
-      <li><a href="https://www.husbanken.no/kobo/">Kobo – saksbehandlingsstøtte</a></li>
-      <li><a href="https://www.statsforvalteren.no/">Statsforvalteren</a></li>
-      <li><a href="https://www.husbanken.no/om-husbanken/kontakt/vare-kontor/">Husbankens regionkontor</a></li>
-    </ul>
-  </div>
+  <p>Prioriter: (1) Manglende enkeltvedtak – alvorlig saksbehandlingsfeil; (2) Manglende svar på henvendelser – lovbrudd som rammer enkeltpersoner direkte; (3) Mangelfull brukermedvirkning – kan medføre ugyldige vedtak; (4) Manglende boligsosiale mål – krever politisk behandling.</p>
 </section>
+</div>
 
-<!-- ==================== PAKKE 5 ==================== -->
-<section class="section" id="pakke5">
+<!-- PAKKE 5 -->
+<div id="sec-pakke5" class="sec-block">
+<section class="section">
   <span class="section-tag tag-pakke">Informasjonspakke 5</span>
   <h1>Akuttsituasjon: Noen trenger bolig i dag</h1>
   <div class="box box-scenario"><p>En person henvender seg til kommunen og er uten bolig i dag – eller vil miste boligen i løpet av kort tid.</p></div>
-
   <h2>Hva er kommunens plikt?</h2>
-  <p>Boligsosialloven regulerer individuelt tilpasset bistand (§ 6), men har ingen egen bestemmelse om akutt midlertidig botilbud. Plikten til å tilby <em>midlertidig botilbud ved akutt bostedsløshet</em> følger av <strong>sosialtjenesteloven § 27</strong>.</p>
+  <p>Plikten til midlertidig botilbud ved akutt bostedsløshet følger av <strong>sosialtjenesteloven § 27</strong> – ikke boligsosialloven. De to lovene virker side om side.</p>
   <table>
-    <tr><th>Lovgrunnlag</th><th>Hva</th><th>Hvem har ansvar</th></tr>
-    <tr><td>Sosialtjenesteloven § 27</td><td>Midlertidig botilbud ved akutt bostedsløshet</td><td>NAV-kontoret i den kommunen personen oppholder seg</td></tr>
+    <tr><th>Lovgrunnlag</th><th>Hva</th><th>Hvem</th></tr>
+    <tr><td>Sosialtjenesteloven § 27</td><td>Midlertidig botilbud ved akutt bostedsløshet</td><td>NAV-kontoret der personen oppholder seg</td></tr>
     <tr><td>Boligsosialloven § 6</td><td>Individuelt tilpasset bistand til varig løsning</td><td>Kommunen (boligtjenesten eller NAV)</td></tr>
   </table>
-  <p><strong>Viktig:</strong> Akutt bistand etter sosialtjenesteloven § 27 er en rettighet som utløses umiddelbart. Det kan ikke stilles krav om søknad, botid eller andre vilkår.</p>
-
-  <h2>Steg for steg ved akutt bostedsløshet</h2>
+  <p><strong>Viktig:</strong> Akutt bistand etter sosialtjenesteloven § 27 utløses umiddelbart – ingen krav om søknad, botid eller andre vilkår. Sett i gang, avklar formalia etterpå.</p>
+  <h2>Steg for steg</h2>
   <ol>
-    <li><strong>Avklar akuttbehovet</strong> – Er personen uten bosted i dag? Er barn involvert? Er det helse- eller sikkerhetsmessige forhold?</li>
-    <li><strong>Gi midlertidig botilbud</strong> – NAV har plikt til å sørge for at personen har et sted å bo. Unngå hospits der det er mulig, særlig for barnefamilier.</li>
-    <li><strong>Fatt vedtak</strong> – Også for akuttbistand skal det fattes enkeltvedtak. Vedtaket kan komme etter at bistanden er gitt.</li>
+    <li><strong>Avklar akuttbehovet</strong> – Uten bosted i dag? Barn involvert? Helse- eller sikkerhetsmessige forhold?</li>
+    <li><strong>Gi midlertidig botilbud</strong> – NAV har plikt. Unngå hospits for barnefamilier.</li>
+    <li><strong>Fatt vedtak</strong> – Også for akuttbistand. Kan komme etter at bistanden er gitt.</li>
     <li><strong>Start arbeidet med varig løsning umiddelbart</strong> – Midlertidig botilbud er et strakstiltak, ikke en løsning.</li>
   </ol>
-
   <h2>Særlig om barnefamilier</h2>
-  <p>Der barn er involvert, gjelder barnekonvensjonen artikkel 3 (barnets beste) og Grunnloven § 104. Barnefamilier bør ikke plasseres i uegnet midlertidig botilbud over tid.</p>
-
+  <p>Barnekonvensjonen artikkel 3 og Grunnloven § 104 gjelder. Barnefamilier bør ikke plasseres i uegnet midlertidig botilbud over tid.</p>
   <h2>Hvem gjør hva?</h2>
   <ul>
     <li><strong>NAV</strong> – akuttbistand etter sosialtjenesteloven § 27</li>
@@ -874,28 +835,21 @@
     <li><strong>Helse</strong> – ved behov knyttet til rus, psykisk helse, funksjonsnedsettelse</li>
   </ul>
 </section>
+</div>
 
-<!-- ==================== PAKKE 6 ==================== -->
-<section class="section" id="pakke6">
+<!-- PAKKE 6 -->
+<div id="sec-pakke6" class="sec-block">
+<section class="section">
   <span class="section-tag tag-pakke">Informasjonspakke 6</span>
   <h1>Mottak og bosetting av flyktninger</h1>
   <div class="box box-scenario"><p>IMDi har anmodet kommunen om bosetting, eller kommunen forbereder mottak av flyktninger.</p></div>
-
   <h2>Boligsosialloven og flyktninger</h2>
-  <p>Flyktninger som er bosatt av kommunen, er <strong>vanskeligstilte på boligmarkedet</strong> i lovens forstand (§ 4) dersom de ikke kan ivareta sine interesser på boligmarkedet – noe som typisk vil gjelde i bosettingsperioden. Boligsosialloven gjelder dermed fullt ut for denne gruppen.</p>
-  <p><strong>Ansvarlig kommune:</strong> Bosettingskommunen (den kommunen IMDi har anmodet og som mottar integreringstilskudd) er ansvarlig, jf. § 3 tredje ledd. Uavtalt utflytting gir ikke automatisk ansvarsovergang.</p>
-
+  <p>Flyktninger som er bosatt av kommunen, er typisk <strong>vanskeligstilte på boligmarkedet</strong> (§ 4) i bosettingsperioden. Boligsosialloven gjelder fullt ut. <strong>Ansvarlig kommune:</strong> Bosettingskommunen (den som mottar integreringstilskudd), jf. § 3 tredje ledd. Uavtalt utflytting gir ikke automatisk ansvarsovergang.</p>
   <h2>Hva kommunen er forpliktet til</h2>
-  <p><strong>Etter boligsosialloven:</strong> Individuelt tilpasset bistand til å skaffe og beholde egnet bolig (§ 6); enkeltvedtak og brukermedvirkning (§ 7); inkludering i boligbehovsanalyse (§ 5).</p>
-  <p><strong>Etter integreringsloven:</strong> Ta imot flyktninger IMDi anmoder om; sørge for introduksjonsprogram, norskopplæring mv.</p>
-
-  <h2>Praktiske utfordringer og anbefalinger</h2>
-  <p><strong>Startlån er et effektivt virkemiddel.</strong> Flyktninger med fast inntekt etter introduksjonsperioden kan i mange tilfeller kjøpe bolig med startlån. Dette frigjør kommunale boliger og gir bedre boligøkonomisk stabilitet.</p>
-  <p>Kommuner som lykkes med bosetting, har gjerne etablert samarbeid med private utleiere og tilgjengelige boliger av ulik størrelse.</p>
-
-  <h2>Ansvarsforholdet ved utflytting</h2>
-  <p>En flyktning som ønsker å flytte bør oppfordres til å avtale dette mellom kommunene. Uten slik avtale beholder bosettingskommunen ansvaret, mens den nye kommunen kan ha plikt til akuttbistand etter sosialtjenesteloven § 27.</p>
-
+  <p><strong>Etter boligsosialloven:</strong> Individuelt tilpasset bistand (§ 6); enkeltvedtak og brukermedvirkning (§ 7); inkludering i boligbehovsanalyse (§ 5).</p>
+  <p><strong>Etter integreringsloven:</strong> Ta imot flyktninger IMDi anmoder om; sørge for introduksjonsprogram og norskopplæring.</p>
+  <h2>Anbefalinger</h2>
+  <div class="box box-recommendation"><p><strong>Startlån er et effektivt virkemiddel.</strong> Flyktninger med fast inntekt etter introduksjonsperioden kan kjøpe bolig med startlån. Dette frigjør kommunale boliger for nye bosettingsbehov og gir bedre boligøkonomisk stabilitet.</p></div>
   <h2>Sjekkliste</h2>
   <ul class="checklist">
     <li>Er boligbehovet for forventet mottak kartlagt?</li>
@@ -905,62 +859,49 @@
     <li>Er flyktninger inkludert i kommunens boligbehovsanalyse?</li>
   </ul>
 </section>
+</div>
 
-<!-- ==================== PAKKE 7 ==================== -->
-<section class="section" id="pakke7">
+<!-- PAKKE 7 -->
+<div id="sec-pakke7" class="sec-block">
+<section class="section">
   <span class="section-tag tag-pakke">Informasjonspakke 7</span>
   <h1>Politisk saksframlegg om boligsosiale tema</h1>
   <div class="box box-scenario"><p>Kommunedirektøren skal legge frem en boligsosial sak for formannskap eller kommunestyre.</p></div>
-
   <h2>Lovforankring – klar til å klippe inn</h2>
-  <div class="box box-cite">
-    <p><strong>Om kommunens rettslige ansvar (§§ 1, 5 og 6):</strong><br>Kommunen har etter boligsosialloven (lov 20. desember 2022 nr. 121, i kraft 1. juli 2023) plikt til å forebygge boligsosiale utfordringer og gi individuelt tilpasset bistand til vanskeligstilte på boligmarkedet. Loven krever at kommunen fastsetter overordnede mål og strategier for det boligsosiale arbeidet i kommuneplanen, og at kommunen har en oppdatert oversikt over boligbehovet for vanskeligstilte. Alle henvendelser om bistand skal besvares med enkeltvedtak.</p>
-  </div>
-  <div class="box box-cite">
-    <p><strong>Om planplikten (§ 5):</strong><br>Boligsosialloven § 5 pålegger kommunen å fastsette overordnede mål og strategier for det boligsosiale arbeidet i kommuneplanens samfunnsdel. Manglende boligsosiale mål i kommuneplanen er i strid med loven. Kommunen skal videre ha en oppdatert oversikt over behovet for ordinære og tilpassede boliger for vanskeligstilte, og denne oversikten skal inngå som grunnlag for arbeidet med kommunens planstrategi.</p>
-  </div>
-  <div class="box box-cite">
-    <p><strong>Om bistandsplikten (§ 6):</strong><br>Kommunen har en ubetinget plikt til å gi individuelt tilpasset bistand til alle vanskeligstilte på boligmarkedet. Bistanden kan ta mange former: råd og veiledning, hjelp til å benytte finansieringsordninger (startlån, tilskudd, bostøtte), bistand i en konkret boligprosess eller hjelp til å forebygge utkastelse. Kommunal bolig er ett av flere virkemidler.</p>
-  </div>
-
-  <h2>Typiske politiske spørsmål – faglige svar</h2>
-  <p><strong>«Kan vi utsette revisjonen av kommuneplanen?»</strong><br>Nei – boligsosialloven § 5 krever at boligsosiale mål fremgår av kommuneplanen. En plan uten slikt innhold oppfyller ikke lovkravet.</p>
-  <p><strong>«Vi har ikke råd til flere kommunale boliger.»</strong><br>Boligsosialloven krever ikke kommunal bolig til alle. Bistanden kan oppfylles gjennom startlån, tilskudd og hjelp i det private leiemarkedet. En ensidig satsing på kommunale boliger er dessuten dyrere over tid.</p>
-  <p><strong>«Vi har ikke kapasitet til å svare på alle henvendelser.»</strong><br>Manglende svar er i strid med loven og kan medføre erstatningsansvar. Dette er et ressursspørsmål politikerne må ta stilling til – ikke et faglig skjønnsspørsmål.</p>
-  <p><strong>«Er dette kommunalt eller statlig ansvar?»</strong><br>Kommunalt. Staten støtter gjennom Husbanken og statsforvalteren, men plikten ligger hos kommunen.</p>
-
+  <div class="box box-cite"><p><strong>Om kommunens rettslige ansvar (§§ 1, 5 og 6):</strong><br>Kommunen har etter boligsosialloven (lov 20. desember 2022 nr. 121, i kraft 1. juli 2023) plikt til å forebygge boligsosiale utfordringer og gi individuelt tilpasset bistand til vanskeligstilte på boligmarkedet. Loven krever at kommunen fastsetter overordnede mål og strategier for det boligsosiale arbeidet i kommuneplanen, og at kommunen har en oppdatert oversikt over boligbehovet for vanskeligstilte. Alle henvendelser om bistand skal besvares med enkeltvedtak.</p></div>
+  <div class="box box-cite"><p><strong>Om planplikten (§ 5):</strong><br>Boligsosialloven § 5 pålegger kommunen å fastsette overordnede mål og strategier for det boligsosiale arbeidet i kommuneplanens samfunnsdel. Manglende boligsosiale mål i kommuneplanen er i strid med loven. Kommunen skal videre ha en oppdatert oversikt over behovet for ordinære og tilpassede boliger, og denne oversikten skal inngå som grunnlag for planstrategiarbeidet.</p></div>
+  <div class="box box-cite"><p><strong>Om bistandsplikten (§ 6):</strong><br>Kommunen har en ubetinget plikt til å gi individuelt tilpasset bistand til alle vanskeligstilte på boligmarkedet. Bistanden kan ta mange former: råd og veiledning, hjelp til å benytte finansieringsordninger (startlån, tilskudd, bostøtte), bistand i en konkret boligprosess eller hjelp til å forebygge utkastelse. Kommunal bolig er ett av flere virkemidler.</p></div>
+  <h2>Typiske politiske spørsmål</h2>
+  <p><strong>«Kan vi utsette revisjonen av kommuneplanen?»</strong> Nei – § 5 krever at boligsosiale mål og strategier fremgår av kommuneplanen. En plan uten slikt innhold oppfyller ikke lovkravet.</p>
+  <p><strong>«Vi har ikke råd til flere kommunale boliger.»</strong> Boligsosialloven krever ikke kommunal bolig til alle. En ensidig satsing på kommunale boliger er dessuten dyrere for kommunen over tid enn å hjelpe folk inn i eid bolig.</p>
+  <p><strong>«Vi har ikke kapasitet til å svare på alle henvendelser.»</strong> Manglende svar er i strid med loven og kan medføre erstatningsansvar. Dette er et ressursspørsmål politikerne må ta stilling til.</p>
+  <p><strong>«Er dette kommunalt eller statlig ansvar?»</strong> Kommunalt. Staten støtter gjennom Husbanken og statsforvalteren, men plikten ligger hos kommunen.</p>
   <h2>Hva politikerne bør vedta</h2>
   <ol>
     <li>Konkrete og målbare boligsosiale mål i kommuneplanen</li>
     <li>Ressurser til oppdatert boligbehovsanalyse</li>
     <li>Tydelig ansvarsplassering i kommunens lederstruktur</li>
-    <li>Boligsosial plan (handlingsplan) med tiltak, ansvar og frister</li>
+    <li>Boligsosial handlingsplan med tiltak, ansvar og frister</li>
   </ol>
 </section>
+</div>
 
-<!-- ==================== PAKKE 8 ==================== -->
-<section class="section" id="pakke8">
+<!-- PAKKE 8 -->
+<div id="sec-pakke8" class="sec-block">
+<section class="section">
   <span class="section-tag tag-pakke">Informasjonspakke 8</span>
   <h1>Tverrsektorielt samarbeid: Boligtjenesten og NAV</h1>
   <div class="box box-scenario"><p>Kommunen skal etablere eller revidere samarbeidsstrukturen mellom boligtjenesten, NAV og helse- og omsorgstjenesten.</p></div>
-
   <h2>Lovgrunnlaget for samarbeid</h2>
-  <p><strong>Boligsosialloven § 5</strong> krever samarbeid på tvers av sektorer og samordning av kommunens tjenester. <strong>Sosialtjenesteloven § 15</strong> slår fast at NAV-kontoret skal «medvirke i kommunens boligsosiale arbeid». NAV har en lovpålagt plikt til å bidra – ikke bare en rolle som ekstern samarbeidsaktør. De to bestemmelsene til sammen betyr at bolig og NAV <em>ikke kan operere i siloer</em>.</p>
-
+  <p><strong>Boligsosialloven § 5</strong> krever samarbeid på tvers av sektorer og samordning av kommunens tjenester. <strong>Sosialtjenesteloven § 15</strong> slår fast at NAV-kontoret skal «medvirke i kommunens boligsosiale arbeid». Bolig og NAV kan ikke operere i siloer – dette er et krav, ikke et valg.</p>
   <h2>Hva samarbeidet bør dekke</h2>
-  <p><strong>Felles målgruppe – ulik inngangsdør:</strong> Vanskeligstilte henvender seg ofte til NAV, ikke til boligtjenesten. NAV må ha rutiner for å videreformidle og koordinere.</p>
+  <p><strong>Felles målgruppe – ulik inngangsdør:</strong> Vanskeligstilte henvender seg ofte til NAV. NAV må ha rutiner for å videreformidle boligsosiale saker.</p>
   <p><strong>Forebygging av utkastelse:</strong> En person som ikke betaler husleie bør fanges opp av NAV og varsle boligtjenesten – ikke bare behandles som en ytelsessak.</p>
-  <p><strong>Oppfølging etter bosetting:</strong> Vanskeligstilte som er kommet i bolig, trenger ofte oppfølging fra boligtjeneste, NAV og helse.</p>
-
+  <p><strong>Oppfølging etter bosetting:</strong> Grenseflateansvar mellom boligtjeneste, NAV og helse.</p>
   <h2>Anbefalt samarbeidsstruktur</h2>
-  <div class="box box-recommendation">
-    <p>Husbanken anbefaler at kommunen etablerer et <strong>tverrsektorielt boligteam</strong> med faste deltakere fra boligtjeneste, NAV og helse- og omsorgstjeneste. Teamet bør møtes jevnlig (annenhver uke eller månedlig), ha mandat til å treffe koordineringsbeslutninger, ha klare rutiner for informasjonsdeling, og rapportere til felles ledelse. I tillegg anbefales skriftlige samarbeidsavtaler som avklarer hvem som gjør hva, rutiner for varsling og krisehåndtering.</p>
-  </div>
-
+  <div class="box box-recommendation"><p>Husbanken anbefaler et <strong>tverrsektorielt boligteam</strong> med faste deltakere fra boligtjeneste, NAV og helse- og omsorgstjeneste. Teamet bør møtes jevnlig, ha mandat til koordineringsbeslutninger, klare rutiner for informasjonsdeling og rapportere til felles ledelse. Supplér med skriftlige samarbeidsavtaler.</p></div>
   <h2>Samarbeid med spesialisthelsetjenesten og kriminalomsorgen</h2>
-  <p><strong>Sykehusutskrivning:</strong> Opprinnelig oppholdskommune er ansvarlig (§ 3 andre ledd). Kommunen bør ha rutiner for å motta varsler og starte planlegging tidlig.</p>
-  <p><strong>Løslatelse fra fengsel:</strong> Kriminalomsorgen har tilbakeføringsansvar. Kommunen bør ha et kontaktpunkt for friomsorgskontoret og faste rutiner for koordinering ved løslatelse.</p>
-
+  <p><strong>Sykehusutskrivning:</strong> Opprinnelig oppholdskommune er ansvarlig (§ 3 andre ledd). Kommunen bør ha rutiner for å motta varsler tidlig. <strong>Løslatelse fra fengsel:</strong> Kriminalomsorgen har tilbakeføringsansvar. Kommunen bør ha faste rutiner med friomsorgskontoret.</p>
   <h2>Sjekkliste</h2>
   <ul class="checklist">
     <li>Er det etablert et tverrsektorielt boligteam eller tilsvarende samordningsforum?</li>
@@ -970,23 +911,23 @@
     <li>Vet NAV-ansatte hva de kan og bør gjøre ved boligsosiale henvendelser?</li>
   </ul>
 </section>
+</div>
 
-<!-- ==================== PAKKE 9 ==================== -->
-<section class="section" id="pakke9">
+<!-- PAKKE 9 -->
+<div id="sec-pakke9" class="sec-block">
+<section class="section">
   <span class="section-tag tag-pakke">Informasjonspakke 9</span>
   <h1>Årshjul: Internkontroll og systematisk oppfølging</h1>
   <div class="box box-scenario"><p>Leder planlegger neste års boligsosiale arbeid og vil systematisere internkontrollen.</p></div>
-
   <h2>Hvorfor internkontroll?</h2>
-  <p>Boligsosialloven stiller krav til systematisk etterlevelse – ikke bare enkeltbeslutninger. Kommuneloven § 25-1 stiller generelle krav til internkontroll. For det boligsosiale feltet innebærer det rutiner og systemer for etterlevelse, kontrollaktiviteter som avdekker avvik, og dokumentasjon av at kontroll er gjennomført.</p>
-
-  <h2>Årshjul – forslag</h2>
+  <p>Kommuneloven § 25-1 stiller generelle krav til internkontroll. For det boligsosiale feltet innebærer det rutiner og systemer for etterlevelse, kontrollaktiviteter som avdekker avvik, og dokumentasjon av at kontroll er gjennomført.</p>
+  <h2>Årshjul</h2>
   <h3>Januar–februar: Gjennomgang av foregående år</h3>
   <ul>
-    <li>Gå gjennom antall henvendelser og enkeltvedtak: Ble alle besvart?</li>
+    <li>Ble alle henvendelser besvart med vedtak?</li>
     <li>Gjennomsnittlig saksbehandlingstid – er den forsvarlig?</li>
     <li>Antall klager til statsforvalteren – hva klages det på?</li>
-    <li>Antall vanskeligstilte som ble bistått, og hva slags bistand ble gitt?</li>
+    <li>Antall vanskeligstilte bistått, og hva slags bistand ble gitt?</li>
   </ul>
   <h3>Mars–april: Kompetanse og rutiner</h3>
   <ul>
@@ -1004,22 +945,19 @@
   <ul>
     <li>Inngår boligsosiale behov i grunnlaget for økonomiplan og budsjett?</li>
     <li>Er boligsosiale mål i kommuneplanen fremdeles dekkende?</li>
-    <li>Er det behov for å foreslå endringer i ressursrammen?</li>
   </ul>
   <h3>Oktober–november: Samarbeid og avvikshåndtering</h3>
   <ul>
-    <li>Gjennomgå samarbeidsavtaler med NAV, helse og kriminalomsorgen</li>
-    <li>Avvikshåndtering: Har det vært avvik fra rutiner?</li>
-    <li>Tverrsektoriell evaluering: Fungerer det tverrfaglige boligteamet?</li>
+    <li>Er samarbeidsavtaler med NAV, helse og kriminalomsorgen oppdaterte?</li>
+    <li>Har det vært avvik fra rutiner? Hva ble gjort?</li>
   </ul>
-  <h3>Desember: Årsrapportering og planlegging</h3>
+  <h3>Desember: Årsrapportering</h3>
   <ul>
     <li>Utarbeid årsrapport for det boligsosiale arbeidet</li>
     <li>Planlegg neste års innsats</li>
     <li>Forbered eventuelle politiske saker om ressurser eller organisering</li>
   </ul>
-
-  <h2>Nøkkelindikatorer for internkontrollen</h2>
+  <h2>Nøkkelindikatorer</h2>
   <table>
     <tr><th>Indikator</th><th>Mål</th></tr>
     <tr><td>Andel henvendelser besvart med vedtak</td><td>100 %</td></tr>
@@ -1029,44 +967,57 @@
     <tr><td>Andel saker med dokumentert brukermedvirkning</td><td>100 %</td></tr>
     <tr><td>Boligbehovsanalyse oppdatert</td><td>Innen 4 år</td></tr>
   </table>
-
-  <h2>Kobling til budsjett og økonomiplan</h2>
-  <p>Kommunen bør hvert år vurdere: Er ressursene til saksbehandling tilstrekkelige? Er startlånsrammen tilstrekkelig til behovet? Er det behov for investeringer i kommunale boliger?</p>
-
-  <div class="resources">
-    <h4>Nyttige ressurser</h4>
-    <ul>
-      <li><a href="https://www.husbanken.no/boligsosialt-arbeid/boligsosial-lov/">Veileder til boligsosialloven</a></li>
-      <li><a href="https://www.husbanken.no/boligsosial-monitor/">Statistikk og monitor</a></li>
-      <li><a href="https://www.husbanken.no/kobo/">Kobo – saksbehandling og dokumentasjon</a></li>
-      <li><a href="https://www.husbanken.no/kommune/opplaring/">Kurs og kompetanse</a></li>
-      <li><a href="https://www.husbanken.no/om-husbanken/kontakt/vare-kontor/">Husbankens regionkontor</a></li>
-    </ul>
-  </div>
+  <div class="resources"><h4>Nyttige ressurser</h4><ul>
+    <li><a href="https://www.husbanken.no/boligsosial-monitor/">Statistikk og monitor</a></li>
+    <li><a href="https://www.husbanken.no/kobo/">Kobo – saksbehandling og dokumentasjon</a></li>
+    <li><a href="https://www.husbanken.no/kommune/opplaring/">Kurs og kompetanse</a></li>
+    <li><a href="https://www.husbanken.no/om-husbanken/kontakt/vare-kontor/">Husbankens regionkontor</a></li>
+  </ul></div>
 </section>
+</div>
 
 </main>
 
 <script>
-  // Active nav link on scroll
-  const sections = document.querySelectorAll('.section');
-  const navLinks = document.querySelectorAll('#sidebar a');
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        const id = entry.target.id;
-        navLinks.forEach(a => {
-          a.classList.toggle('active', a.getAttribute('href') === '#' + id);
-        });
-      }
-    });
-  }, { rootMargin: '-20% 0px -70% 0px' });
-  sections.forEach(s => observer.observe(s));
+const sections = ['kap0','kap1','kap2','kap3','kap4','kap5','kap6','kap7',
+                  'pakke1','pakke2','pakke3','pakke4','pakke5','pakke6','pakke7','pakke8','pakke9'];
+const isPakke = id => id.startsWith('pakke');
 
-  // Close sidebar on nav click (mobile)
-  navLinks.forEach(a => a.addEventListener('click', () => {
-    document.getElementById('sidebar').classList.remove('open');
-  }));
+function showHome() {
+  document.getElementById('home-page').style.display = 'block';
+  document.getElementById('content-wrap').style.display = 'none';
+  document.getElementById('sidebar').style.display = 'none';
+  document.getElementById('back-btn').style.display = 'none';
+  document.getElementById('print-btn').style.display = 'none';
+  window.scrollTo(0, 0);
+  location.hash = '';
+}
+
+function showSection(id) {
+  document.getElementById('home-page').style.display = 'none';
+  document.getElementById('sidebar').style.display = 'block';
+  document.getElementById('content-wrap').style.display = 'block';
+  document.getElementById('back-btn').style.display = 'inline-block';
+  document.getElementById('print-btn').style.display = isPakke(id) ? 'inline-block' : 'none';
+
+  sections.forEach(s => {
+    const el = document.getElementById('sec-' + s);
+    if (el) el.style.display = s === id ? 'block' : 'none';
+  });
+
+  document.querySelectorAll('#sidebar a').forEach(a => {
+    a.classList.toggle('active', a.getAttribute('onclick') && a.getAttribute('onclick').includes("'" + id + "'"));
+  });
+
+  window.scrollTo(0, 0);
+  location.hash = id;
+}
+
+// Handle direct URL with hash
+window.addEventListener('load', () => {
+  const hash = location.hash.replace('#', '');
+  if (hash && sections.includes(hash)) showSection(hash);
+});
 </script>
 </body>
 </html>
